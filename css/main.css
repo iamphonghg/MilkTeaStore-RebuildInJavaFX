@@ -1,0 +1,10 @@
+.function-btn {
+  -fx-background-color: none;
+  -fx-text-fill: white;
+  -fx-background-radius: 0px;
+}
+
+.function-btn:hover {
+  -fx-background-color: white;
+  -fx-text-fill: #002060;
+}
