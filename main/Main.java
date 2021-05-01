@@ -15,9 +15,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("fxml/Main.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/Main.fxml"));
+
+        Parent root = FXMLLoader.load(getClass().getResource("../fxml/Main.fxml"));
         primaryStage.setTitle("MILK TEA STORE");
         primaryStage.setScene(new Scene(root));
         primaryStage.initStyle(StageStyle.UNDECORATED);
