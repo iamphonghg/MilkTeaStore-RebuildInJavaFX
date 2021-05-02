@@ -1,15 +1,15 @@
-package controllers;
+package controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +23,9 @@ public class MainController implements Initializable {
     private URL location;
 
     @FXML
+    private BorderPane pnMain;
+
+    @FXML
     private Button btnOrder;
 
     @FXML
@@ -33,6 +36,8 @@ public class MainController implements Initializable {
 
     @FXML
     private Button btnItem;
+    @FXML
+    private MaterialDesignIconView iconItem;
 
     @FXML
     private Button btnStaff;
@@ -59,13 +64,19 @@ public class MainController implements Initializable {
     private VBox pnVBox;
 
     @FXML
-    private HBox pnHBox;
+    private AnchorPane pnTop;
 
     @FXML
-    private AnchorPane pnAnchor;
+    private MaterialDesignIconView btnClose;
 
-    private HBox pnItem;
-    private HBox pnOrder;
+    @FXML
+    private MaterialDesignIconView btnMinimize;
+
+    @FXML
+    private AnchorPane pnStack;
+
+    private VBox pnItem;
+    private VBox pnOrder;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,26 +89,34 @@ public class MainController implements Initializable {
             fxmlLoaderOrder.setLocation(getClass().getResource("../fxml/Order.fxml"));
             pnOrder = fxmlLoaderOrder.load();
 
-            pnAnchor.getChildren().add(pnItem);
-            pnAnchor.getChildren().add(pnOrder);
+            pnStack.getChildren().add(pnItem);
+            pnStack.getChildren().add(pnOrder);
 
-            btnItem.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    pnItem.toFront();
-                }
-            });
-            btnOrder.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    pnOrder.toFront();
-                }
-            });
+
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public void handleClose(MouseEvent mouseEvent) {
+        if (mouseEvent.getSource() == btnClose) {
+            System.exit(0);
+        }
+        if (mouseEvent.getSource() == btnMinimize) {
+            Stage stage = (Stage) pnMain.getScene().getWindow();
+            stage.setIconified(true);
+        }
+    }
+
+    public void handleNavigation(MouseEvent mouseEvent) {
+        if (mouseEvent.getSource() == btnItem) {
+            btnItem.setStyle("-fx-background-color: white");
+            iconItem.setFill(Color.rgb(0, 176, 240));
+            pnItem.toFront();
+        } else if (mouseEvent.getSource() == btnOrder) {
+            pnOrder.toFront();
+        }
+    }
 
 }

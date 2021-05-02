@@ -8,8 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+
 
 public class Main extends Application {
 
@@ -18,7 +21,9 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("../fxml/Main.fxml"));
         primaryStage.setTitle("MILK TEA STORE");
-        primaryStage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
 

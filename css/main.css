@@ -1,10 +1,13 @@
 .function-btn {
   -fx-background-color: none;
   -fx-text-fill: white;
-  -fx-background-radius: 0px;
+  -fx-background-radius: 12px;
 }
 
 .function-btn:hover {
   -fx-background-color: white;
-  -fx-text-fill: #002060;
+}
+
+.function-btn:hover .icon {
+  -fx-fill: #002060;
 }

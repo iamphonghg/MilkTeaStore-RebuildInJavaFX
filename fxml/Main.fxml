@@ -1,67 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<BorderPane fx:id="pnMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1300.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <left>
-      <VBox prefHeight="800.0" prefWidth="217.0" style="-fx-background-color: #002060;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="800.0" prefWidth="70.0" style="-fx-background-color: #002060;" BorderPane.alignment="CENTER">
          <children>
-            <Rectangle arcHeight="5.0" fill="#00b0f0" height="123.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" width="220.0" />
-            <Button fx:id="btnOrder" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="242.0" styleClass="function-btn" text="Order" textFill="WHITE">
+            <Pane maxHeight="70.0" maxWidth="70.0" prefHeight="70.0" prefWidth="70.0" style="-fx-background-color: #00b0f0;">
+               <children>
+                  <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/milk-tea-logo-2_2.png" />
+                     </image>
+                  </ImageView>
+               </children></Pane>
+            <Button fx:id="btnOrder" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onMouseClicked="#handleNavigation" prefHeight="50.0" prefWidth="50.0" styleClass="function-btn" textFill="WHITE">
                <font>
-                  <Font name="Open Sans Bold" size="23.0" />
+                  <Font name="Open Sans Bold" size="18.0" />
                </font>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="CART" styleClass="icon" />
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
             </Button>
-            <Button fx:id="btnProcessing" layoutX="10.0" layoutY="133.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="242.0" styleClass="function-btn" text="Processing">
+            <Button fx:id="btnProcessing" layoutX="10.0" layoutY="133.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="function-btn">
                <font>
-                  <Font name="Open Sans Bold" size="23.0" />
+                  <Font name="Open Sans Bold" size="18.0" />
                </font>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="TIMER_SAND" styleClass="icon" />
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin>
             </Button>
-            <Button fx:id="btnHistory" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="242.0" styleClass="function-btn" text="History">
+            <Button fx:id="btnHistory" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="function-btn">
                <font>
-                  <Font name="Open Sans Bold" size="23.0" />
+                  <Font name="Open Sans Bold" size="18.0" />
                </font>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="HISTORY" styleClass="icon" />
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin>
             </Button>
-            <Button fx:id="btnItem" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="242.0" styleClass="function-btn" text="Item">
+            <Button fx:id="btnItem" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" onMouseClicked="#handleNavigation" prefHeight="50.0" prefWidth="50.0" styleClass="function-btn">
                <font>
-                  <Font name="Open Sans Bold" size="23.0" />
+                  <Font name="Open Sans Bold" size="18.0" />
                </font>
+               <graphic>
+                  <MaterialDesignIconView fx:id="iconItem" fill="WHITE" glyphName="FOOD_FORK_DRINK" styleClass="icon" />
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin>
             </Button>
-            <Button fx:id="btnStaff" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="242.0" styleClass="function-btn" text="Staff">
+            <Button fx:id="btnStaff" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="function-btn">
                <font>
-                  <Font name="Open Sans Bold" size="23.0" />
+                  <Font name="Open Sans Bold" size="18.0" />
                </font>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT" styleClass="icon" />
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin>
             </Button>
-            <Button fx:id="btnShift" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="242.0" styleClass="function-btn" text="Shift">
+            <Button fx:id="btnShift" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="function-btn">
                <font>
-                  <Font name="Open Sans Bold" size="23.0" />
+                  <Font name="Open Sans Bold" size="18.0" />
                </font>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_SWITCH" styleClass="icon" />
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin>
             </Button>
-            <Button fx:id="btnPromo" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="242.0" styleClass="function-btn" text="Promo">
+            <Button fx:id="btnPromo" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="function-btn">
                <font>
-                  <Font name="Open Sans Bold" size="23.0" />
+                  <Font name="Open Sans Bold" size="18.0" />
                </font>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="WALLET_GIFTCARD" styleClass="icon" />
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin>
             </Button>
-            <Button fx:id="btnAttendance" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="242.0" styleClass="function-btn" text="Attendance">
+            <Button fx:id="btnAttendance" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="function-btn">
                <font>
-                  <Font name="Open Sans Bold" size="23.0" />
+                  <Font name="Open Sans Bold" size="18.0" />
                </font>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="CALENDAR_CHECK" styleClass="icon" />
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin>
             </Button>
-            <Button fx:id="btnSalary" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="242.0" styleClass="function-btn" text="Salary">
+            <Button fx:id="btnSalary" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="function-btn">
                <font>
-                  <Font name="Open Sans Bold" size="23.0" />
+                  <Font name="Open Sans Bold" size="18.0" />
                </font>
+               <graphic>
+                  <MaterialDesignIconView fill="WHITE" glyphName="CASH" styleClass="icon" />
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin>
             </Button>
-            <Button fx:id="btnStatistics" mnemonicParsing="false" prefHeight="62.0" prefWidth="242.0" styleClass="function-btn" text="Statistics">
+            <Button fx:id="btnStatistics" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="function-btn">
                <font>
-                  <Font name="Open Sans Bold" size="23.0" />
+                  <Font name="Open Sans Bold" size="18.0" />
                </font>
+               <graphic>
+                  <MaterialDesignIconView fill="#f7f7f7" glyphName="CHART_LINE" styleClass="icon" />
+               </graphic>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+               </VBox.margin>
             </Button>
          </children>
       </VBox>
@@ -69,8 +139,13 @@
    <center>
       <VBox fx:id="pnVBox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
-            <HBox fx:id="pnHBox" prefHeight="123.0" prefWidth="1080.0" />
-            <AnchorPane fx:id="pnAnchor" maxHeight="627.0" maxWidth="1080.0" prefHeight="627.0" prefWidth="1080.0" />
+            <AnchorPane fx:id="pnTop" maxHeight="70.0" maxWidth="1230.0" prefHeight="70.0" prefWidth="1230.0">
+               <children>
+                  <MaterialDesignIconView fx:id="btnClose" fill="#002060" glyphName="WINDOW_CLOSE" layoutX="1189.0" layoutY="40.0" onMouseClicked="#handleClose" size="20" />
+                  <MaterialDesignIconView fx:id="btnMinimize" fill="#002060" glyphName="WINDOW_MINIMIZE" layoutX="1158.0" layoutY="40.0" onMouseClicked="#handleClose" size="20" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="pnStack" maxHeight="680.0" maxWidth="1230.0" prefHeight="680.0" prefWidth="1230.0" style="-fx-background-color: f8f7fc;" />
          </children>
       </VBox>
    </center>
