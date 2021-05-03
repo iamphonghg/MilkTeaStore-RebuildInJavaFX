@@ -1,5 +1,6 @@
 package controller;
 
+import connect.DBConnect;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -27,12 +31,18 @@ public class MainController implements Initializable {
 
     @FXML
     private Button btnOrder;
+    @FXML
+    private MaterialDesignIconView iconOrder;
 
     @FXML
     private Button btnProcessing;
+    @FXML
+    private MaterialDesignIconView iconProcessing;
 
     @FXML
     private Button btnHistory;
+    @FXML
+    private MaterialDesignIconView iconHistory;
 
     @FXML
     private Button btnItem;
@@ -41,21 +51,33 @@ public class MainController implements Initializable {
 
     @FXML
     private Button btnStaff;
+    @FXML
+    private MaterialDesignIconView iconStaff;
 
     @FXML
     private Button btnShift;
+    @FXML
+    private MaterialDesignIconView iconShift;
 
     @FXML
     private Button btnPromo;
+    @FXML
+    private MaterialDesignIconView iconPromo;
 
     @FXML
     private Button btnAttendance;
+    @FXML
+    private MaterialDesignIconView iconAttendance;
 
     @FXML
     private Button btnSalary;
+    @FXML
+    private MaterialDesignIconView iconSalary;
 
     @FXML
     private Button btnStatistics;
+    @FXML
+    private MaterialDesignIconView iconStatistics;
 
     @FXML
     private StackPane stackPane;
@@ -78,6 +100,8 @@ public class MainController implements Initializable {
     private VBox pnItem;
     private VBox pnOrder;
 
+    public static DBConnect connect = new DBConnect();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -89,10 +113,8 @@ public class MainController implements Initializable {
             fxmlLoaderOrder.setLocation(getClass().getResource("../fxml/Order.fxml"));
             pnOrder = fxmlLoaderOrder.load();
 
-            pnStack.getChildren().add(pnItem);
             pnStack.getChildren().add(pnOrder);
-
-
+            pnStack.getChildren().add(pnItem);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -110,13 +132,21 @@ public class MainController implements Initializable {
     }
 
     public void handleNavigation(MouseEvent mouseEvent) {
-        if (mouseEvent.getSource() == btnItem) {
-            btnItem.setStyle("-fx-background-color: white");
-            iconItem.setFill(Color.rgb(0, 176, 240));
-            pnItem.toFront();
-        } else if (mouseEvent.getSource() == btnOrder) {
+        if (mouseEvent.getSource() == btnOrder) {
             pnOrder.toFront();
+        } else if (mouseEvent.getSource() == btnProcessing) {
+        } else if (mouseEvent.getSource() == btnHistory) {
+        } else if (mouseEvent.getSource() == btnItem) {
+            pnItem.toFront();
+        } else if (mouseEvent.getSource() == btnStaff) {
+        } else if (mouseEvent.getSource() == btnShift) {
+        } else if (mouseEvent.getSource() == btnPromo) {
+        } else if (mouseEvent.getSource() == btnAttendance) {
+        } else if (mouseEvent.getSource() == btnSalary) {
+        } else if (mouseEvent.getSource() == btnStatistics) {
         }
     }
+
+
 
 }

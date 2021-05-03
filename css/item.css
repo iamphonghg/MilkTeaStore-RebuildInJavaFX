@@ -1,0 +1,22 @@
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-background-color: #e8eff2;
+    -fx-cell-size: 20;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #002060;
+    -fx-alignment: CENTER;
+    -fx-border-radius: 12px;
+    -fx-font-family: "Roboto Black";
+}
+
+.table-view .cell {
+    -fx-font-family: "Roboto Black Thin";
+    -fx-text-fill: #002060;
+    -fx-alignment: center;
+}
+
+.table-view #colName {
+    -fx-alignment: center-left;
+}

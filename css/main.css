@@ -1,6 +1,5 @@
 .function-btn {
   -fx-background-color: none;
-  -fx-text-fill: white;
   -fx-background-radius: 12px;
 }
 
@@ -11,3 +10,29 @@
 .function-btn:hover .icon {
   -fx-fill: #002060;
 }
+
+.function-btn:focused {
+  -fx-background-color: white;
+}
+
+.function-btn:focused .icon {
+  -fx-fill: #00b0f0;
+  -fx-scale-x: 1.2;
+  -fx-scale-y: 1.2;
+}
+
+.table-view .scroll-bar:horizontal .track,
+.table-view .scroll-bar:vertical .track{
+  -fx-background-color: transparent;
+  -fx-border-color: derive(#e8eff2, 100%);
+  -fx-background-radius: 2em;
+  -fx-border-radius:2em;
+}
+
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb {
+  -fx-background-color: derive(#e8eff2, 100%);
+  -fx-background-insets: 2, 0, 0;
+  -fx-background-radius: 2em;
+}
+
