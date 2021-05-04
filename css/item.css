@@ -8,11 +8,17 @@
     -fx-text-fill: #002060;
     -fx-alignment: CENTER;
     -fx-border-radius: 12px;
-    -fx-font-family: "Roboto Black";
+    -fx-font-family: "Iciel Panton Black";
 }
 
+.label {
+    -fx-font-family: "Iciel Panton Black";
+}
+.sub-main-label {
+    -fx-font-family: "Iciel Panton Light";
+}
 .table-view .cell {
-    -fx-font-family: "Roboto Black Thin";
+    -fx-font-family: "Iciel Panton Light";
     -fx-text-fill: #002060;
     -fx-alignment: center;
 }
@@ -20,3 +26,55 @@
 .table-view #colName {
     -fx-alignment: center-left;
 }
+
+.table-row-cell:selected {
+    -fx-background-color:  #00b0f0;
+}
+.table-row-cell:selected .text {
+    -fx-fill : white;
+}
+
+.combo-box {
+    -fx-background-color : #ffffff;
+    -fx-border-color:  #002060;
+    -fx-border-radius: 8;
+}
+
+.cbx-category {
+    -fx-border-radius: 12;
+    -fx-text-fill: #002060;
+}
+
+.btn-add-new {
+    -fx-border-radius: 20;
+    -fx-border-color: #002060;
+    -fx-background-radius: 20;
+    -fx-background-color: #002060;
+    -fx-font-family: "Iciel Panton Black";
+    -fx-font-size: 17;
+}
+.btn-edit {
+    -fx-border-radius: 20;
+    -fx-border-color: #002060;
+    -fx-background-radius: 20;
+    -fx-background-color: #ffffff;
+    -fx-font-family: "Iciel Panton Black";
+    -fx-font-size: 17;
+}
+.btn-out-stock {
+    -fx-border-radius: 20;
+    -fx-border-color: red;
+    -fx-background-radius: 20;
+    -fx-background-color: #ffffff;
+    -fx-font-family: "Iciel Panton Black";
+    -fx-font-size: 17;
+}
+.btn-in-stock {
+    -fx-border-radius: 20;
+    -fx-border-color: green;
+    -fx-background-radius: 20;
+    -fx-background-color: #ffffff;
+    -fx-font-family: "Iciel Panton Black";
+    -fx-font-size: 17;
+}
+

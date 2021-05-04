@@ -142,7 +142,7 @@
             <AnchorPane fx:id="pnTop" maxHeight="70.0" maxWidth="1230.0" prefHeight="70.0" prefWidth="1230.0">
                <children>
                   <MaterialDesignIconView fx:id="btnClose" fill="#002060" glyphName="WINDOW_CLOSE" layoutX="1189.0" layoutY="40.0" onMouseClicked="#handleClose" size="20" />
-                  <MaterialDesignIconView fx:id="btnMinimize" fill="#002060" glyphName="WINDOW_MINIMIZE" layoutX="1158.0" layoutY="40.0" onMouseClicked="#handleClose" size="20" />
+                  <MaterialDesignIconView fx:id="btnMinimize" fill="#002060" glyphName="WINDOW_MINIMIZE" layoutX="1148.0" layoutY="40.0" onMouseClicked="#handleClose" size="20" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="pnStack" maxHeight="680.0" maxWidth="1230.0" prefHeight="680.0" prefWidth="1230.0" style="-fx-background-color: f8f7fc;" />

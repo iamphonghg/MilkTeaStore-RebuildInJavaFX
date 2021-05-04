@@ -97,7 +97,7 @@ public class MainController implements Initializable {
     @FXML
     private AnchorPane pnStack;
 
-    private VBox pnItem;
+    private AnchorPane pnItem;
     private VBox pnOrder;
 
     public static DBConnect connect = new DBConnect();
@@ -106,7 +106,7 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             FXMLLoader fxmlLoaderItem = new FXMLLoader();
-            fxmlLoaderItem.setLocation(getClass().getResource("../fxml/Item.fxml"));
+            fxmlLoaderItem.setLocation(getClass().getResource("../fxml/item2.fxml"));
             pnItem = fxmlLoaderItem.load();
 
             FXMLLoader fxmlLoaderOrder = new FXMLLoader();

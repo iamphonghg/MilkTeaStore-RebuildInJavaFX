@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="pnItem" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1230.0" style="-fx-background-color: e8eff2;" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemController">
+<VBox fx:id="pnItem" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1230.0" style="-fx-background-color: e8eff2;" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="104.0" prefWidth="1230.0">
          <children>
-            <Label layoutX="43.0" layoutY="26.0" text="Item" textFill="#002060">
+            <Label layoutX="43.0" layoutY="26.0" styleClass="main-label" text="Item" textFill="#002060">
                <font>
-                  <Font name="Roboto Black" size="25.0" />
+                  <Font name="Josefin Sans SemiBold" size="25.0" />
                </font>
             </Label>
-            <Label layoutX="42.0" layoutY="61.0" text="Add new, edit or delete item" textFill="#002060">
+            <Label layoutX="42.0" layoutY="60.0" styleClass="sub-main-label" text="Add new, edit or delete item" textFill="#002060">
                <font>
-                  <Font name="Roboto Light" size="12.0" />
+                  <Font name="Josefin Sans Light" size="14.0" />
                </font>
             </Label>
          </children>
@@ -35,8 +39,8 @@
                <children>
                   <AnchorPane prefHeight="540.0" prefWidth="695.0">
                      <children>
-                        <ComboBox fx:id="cbxCategory" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="112.0" promptText="MILK TEA" style="-fx-background-color: e8eff2; -fx-background-radius: 12;" styleClass="cbx-category" />
-                        <TableView fx:id="tableItem" layoutX="10.0" layoutY="46.0" prefHeight="475.0" prefWidth="675.0" style="-fx-background-color: ffffff; -fx-border-color: e8eff2;">
+                        <ComboBox fx:id="cbxCategory" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="114.0" promptText="MILK TEA" style="-fx-background-color: e8eff2; -fx-background-radius: 12;" styleClass="cbx-category" />
+                        <TableView fx:id="tableItem" layoutX="10.0" layoutY="46.0" onMouseClicked="#handleClickTable" prefHeight="475.0" prefWidth="675.0" style="-fx-background-color: ffffff; -fx-border-color: e8eff2;">
                           <columns>
                             <TableColumn fx:id="colNo" prefWidth="47.466670989990234" text="No." />
                             <TableColumn fx:id="colName" prefWidth="262.93335723876953" text="Name" />
@@ -50,10 +54,86 @@
                   </AnchorPane>
                </children>
             </VBox>
-            <VBox prefHeight="576.0" prefWidth="440.0" style="-fx-background-color: ffffff; -fx-background-radius: 12;">
+            <VBox minHeight="411.0" minWidth="418.0" prefHeight="411.0" prefWidth="418.0" style="-fx-background-color: ffffff; -fx-background-radius: 12;">
                <HBox.margin>
                   <Insets bottom="45.0" left="15.0" right="40.0" />
                </HBox.margin>
+               <children>
+                  <AnchorPane prefHeight="414.0" prefWidth="418.0">
+                     <children>
+                        <Label layoutX="32.0" layoutY="28.0" prefHeight="30.0" prefWidth="62.0" text="Name:" textFill="#002060">
+                           <font>
+                              <Font name="Josefin Sans SemiBold" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField alignment="CENTER_RIGHT" layoutX="32.0" layoutY="63.0" prefHeight="30.0" prefWidth="130.0" promptText="MILK TEA" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
+                        <Label layoutX="32.0" layoutY="103.0" prefHeight="30.0" prefWidth="62.0" text="Type:" textFill="#002060">
+                           <font>
+                              <Font name="Josefin Sans SemiBold" size="20.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cbxCategory1" layoutX="32.0" layoutY="138.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="130.0" promptText="MILK TEA" style="-fx-background-color: #ffffff;" />
+                        <Label layoutX="32.0" layoutY="178.0" prefHeight="30.0" prefWidth="90.0" text="Price M:" textFill="#002060">
+                           <font>
+                              <Font name="Josefin Sans SemiBold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="32.0" layoutY="251.0" prefHeight="30.0" prefWidth="90.0" text="Price L:" textFill="#002060">
+                           <font>
+                              <Font name="Josefin Sans SemiBold" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField alignment="CENTER_RIGHT" layoutX="32.0" layoutY="211.0" prefHeight="30.0" prefWidth="130.0" promptText="50.000đ" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
+                        <TextField alignment="CENTER_RIGHT" layoutX="32.0" layoutY="286.0" prefHeight="30.0" prefWidth="130.0" promptText="60.000đ" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
+                        <Label layoutX="32.0" layoutY="326.0" prefHeight="30.0" prefWidth="90.0" text="Promo:" textFill="#002060">
+                           <font>
+                              <Font name="Josefin Sans SemiBold" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField alignment="CENTER_RIGHT" layoutX="32.0" layoutY="361.0" prefHeight="30.0" prefWidth="130.0" promptText="10.000đ" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
+                        <Button layoutX="223.0" layoutY="298.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="75.0" styleClass="btn-add-new" text="ADD" textFill="WHITE">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="309.0" layoutY="298.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="75.0" styleClass="btn-edit" text="EDIT" textFill="#002060">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="223.0" layoutY="348.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="75.0" styleClass="btn-out-stock" text="OUT" textFill="#002060">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="309.0" layoutY="348.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="75.0" styleClass="btn-in-stock" text="IN" textFill="#002060">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Button>
+                        <AnchorPane layoutX="214.0" layoutY="63.0" maxHeight="180.0" maxWidth="180.0" minHeight="180.0" minWidth="180.0" prefHeight="180.0" prefWidth="180.0" style="-fx-border-color: #002060; -fx-border-radius: 15;">
+                           <children>
+                              <FontAwesomeIconView fill="#002060" glyphName="IMAGE" layoutX="53.0" layoutY="115.0" selectionFill="#002060" size="70">
+                                 <font>
+                                    <Font size="59.0" />
+                                 </font>
+                              </FontAwesomeIconView>
+                              <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </AnchorPane>
+                        <Button layoutX="353.0" layoutY="248.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #002060; -fx-background-radius: 15;">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="FILE_IMAGE_ALT" />
+                           </graphic>
+                        </Button>
+                        <Button layoutX="315.0" layoutY="248.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: none; -fx-border-radius: 15; -fx-border-color: #002060;">
+                           <graphic>
+                              <FontAwesomeIconView fill="#002060" glyphName="TRASH_ALT" size="14" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
             </VBox>
          </children>
       </HBox>

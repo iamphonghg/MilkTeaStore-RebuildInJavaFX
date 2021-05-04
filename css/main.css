@@ -9,6 +9,8 @@
 
 .function-btn:hover .icon {
   -fx-fill: #002060;
+  -fx-scale-x: 1.2;
+  -fx-scale-y: 1.2;
 }
 
 .function-btn:focused {
@@ -17,8 +19,6 @@
 
 .function-btn:focused .icon {
   -fx-fill: #00b0f0;
-  -fx-scale-x: 1.2;
-  -fx-scale-y: 1.2;
 }
 
 .table-view .scroll-bar:horizontal .track,
