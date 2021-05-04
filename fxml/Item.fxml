@@ -66,13 +66,13 @@
                               <Font name="Josefin Sans SemiBold" size="20.0" />
                            </font>
                         </Label>
-                        <TextField alignment="CENTER_RIGHT" layoutX="32.0" layoutY="63.0" prefHeight="30.0" prefWidth="130.0" promptText="MILK TEA" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
+                        <TextField fx:id="txtName" alignment="CENTER_RIGHT" layoutX="32.0" layoutY="63.0" prefHeight="30.0" prefWidth="130.0" promptText="MILK TEA" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
                         <Label layoutX="32.0" layoutY="103.0" prefHeight="30.0" prefWidth="62.0" text="Type:" textFill="#002060">
                            <font>
                               <Font name="Josefin Sans SemiBold" size="20.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="cbxCategory1" layoutX="32.0" layoutY="138.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="130.0" promptText="MILK TEA" style="-fx-background-color: #ffffff;" />
+                        <ComboBox fx:id="cbxCategory2" layoutX="32.0" layoutY="138.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="130.0" promptText="MILK TEA" style="-fx-background-color: #ffffff;" />
                         <Label layoutX="32.0" layoutY="178.0" prefHeight="30.0" prefWidth="90.0" text="Price M:" textFill="#002060">
                            <font>
                               <Font name="Josefin Sans SemiBold" size="20.0" />
@@ -83,14 +83,14 @@
                               <Font name="Josefin Sans SemiBold" size="20.0" />
                            </font>
                         </Label>
-                        <TextField alignment="CENTER_RIGHT" layoutX="32.0" layoutY="211.0" prefHeight="30.0" prefWidth="130.0" promptText="50.000đ" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
-                        <TextField alignment="CENTER_RIGHT" layoutX="32.0" layoutY="286.0" prefHeight="30.0" prefWidth="130.0" promptText="60.000đ" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
+                        <TextField fx:id="txtPriceM" alignment="CENTER_RIGHT" layoutX="32.0" layoutY="211.0" prefHeight="30.0" prefWidth="130.0" promptText="50.000đ" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
+                        <TextField fx:id="txtPriceL" alignment="CENTER_RIGHT" layoutX="32.0" layoutY="286.0" prefHeight="30.0" prefWidth="130.0" promptText="60.000đ" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
                         <Label layoutX="32.0" layoutY="326.0" prefHeight="30.0" prefWidth="90.0" text="Promo:" textFill="#002060">
                            <font>
                               <Font name="Josefin Sans SemiBold" size="20.0" />
                            </font>
                         </Label>
-                        <TextField alignment="CENTER_RIGHT" layoutX="32.0" layoutY="361.0" prefHeight="30.0" prefWidth="130.0" promptText="10.000đ" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
+                        <TextField fx:id="txtPromo" alignment="CENTER_RIGHT" layoutX="32.0" layoutY="361.0" prefHeight="30.0" prefWidth="130.0" promptText="10.000đ" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
                         <Button layoutX="223.0" layoutY="298.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="75.0" styleClass="btn-add-new" text="ADD" textFill="WHITE">
                            <font>
                               <Font size="17.0" />

@@ -6,10 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import main.Main;
 import model.Item;
@@ -26,6 +25,21 @@ public class ItemController implements Initializable {
 
     @FXML
     private VBox pnDetailItem;
+
+    @FXML
+    private TextField txtName;
+
+    @FXML
+    private ComboBox<String> cbxCategory2;
+
+    @FXML
+    private TextField txtPriceM;
+
+    @FXML
+    private TextField txtPriceL;
+
+    @FXML
+    private TextField txtPromo;
 
     @FXML
     private ComboBox<String> cbxCategory;
@@ -51,6 +65,35 @@ public class ItemController implements Initializable {
     @FXML
     private TableColumn<Item, Integer> colPromo;
 
+    @FXML
+    private Button btnAdd;
+
+    @FXML
+    private Button btnEdit;
+
+    @FXML
+    private Button btnOutStock;
+
+    @FXML
+    private Button btnInStock;
+
+    @FXML
+    private Button btnConfirmEdit;
+
+    @FXML
+    private Button btnCancelEdit;
+
+    @FXML
+    private Button btnConfirmAdd;
+
+    @FXML
+    private Button btnCancelAdd;
+
+    @FXML
+    private Label lblNoti;
+
+    private Item selectedItem;
+
     /*public static List<Item> itemList = loadListItemFromDBToList();
 
     public static List<Item> loadListItemFromDBToList() {
@@ -75,11 +118,15 @@ public class ItemController implements Initializable {
         cbxCategory.setItems(FXCollections.observableArrayList("MILK TEA", "FRUIT TEA", "MACCHIATO",
                 "TOPPING", "FOOD"));
         cbxCategory.setFocusTraversable(false);
+        cbxCategory2.setItems(FXCollections.observableArrayList("MILK TEA", "FRUIT TEA", "MACCHIATO",
+                "TOPPING", "FOOD"));
+        cbxCategory2.setFocusTraversable(false);
         loadItemListFromDBToTable("TRÀ SỮA");
         handleCombobox();
     }
 
     public void handleCombobox() {
+        cbxCategory.getSelectionModel().select(0);
         cbxCategory.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -103,6 +150,151 @@ public class ItemController implements Initializable {
                 }
             }
         });
+    }
+
+
+
+    public void eventButton(MouseEvent mouseEvent) {
+        if (mouseEvent.getSource() == btnAdd) {
+            txtName.setText("");
+            txtPriceM.setText("");
+            txtPriceL.setText("");
+            txtPromo.setText("");
+            cbxCategory2.getSelectionModel().select(cbxCategory.getSelectionModel().getSelectedItem());
+            btnConfirmAdd.setVisible(true);
+            btnConfirmAdd.setDisable(false);
+            btnCancelAdd.setVisible(true);
+            btnCancelAdd.setDisable(false);
+            btnAdd.setVisible(false);
+            btnAdd.setDisable(true);
+            btnEdit.setDisable(true);
+            btnInStock.setDisable(true);
+            btnOutStock.setDisable(true);
+        } else if (mouseEvent.getSource() == btnCancelAdd) {
+            btnConfirmAdd.setVisible(false);
+            btnConfirmAdd.setDisable(true);
+            btnCancelAdd.setVisible(false);
+            btnCancelAdd.setDisable(true);
+            btnAdd.setVisible(true);
+            btnAdd.setDisable(false);
+            btnEdit.setDisable(false);
+            btnInStock.setDisable(false);
+            btnOutStock.setDisable(false);
+        } else if (mouseEvent.getSource() == btnConfirmAdd) {
+            String name = txtName.getText();
+            String priceM = txtPriceM.getText();
+            String priceL = txtPriceL.getText();
+            String promo = txtPromo.getText();
+            String type = cbxCategory2.getSelectionModel().getSelectedItem();
+            if (name.isBlank() || priceM.isBlank() || priceL.isBlank()) {
+                lblNoti.setText("Can not add, please check again!");
+            } else {
+                int promoInt = 0;
+                int priceMInt = Integer.parseInt(priceM);
+                int priceLInt = Integer.parseInt(priceL);
+                if (!promo.isBlank() && !promo.equals("0")) {
+                    promoInt = Integer.parseInt(promo);
+                }
+                Item i = new Item(0, name, type, priceMInt, priceLInt, "in stock", promoInt);
+                lblNoti.setText("Successfully added.");
+                System.out.println(i);
+            }
+            btnConfirmAdd.setVisible(false);
+            btnConfirmAdd.setDisable(true);
+            btnCancelAdd.setVisible(false);
+            btnCancelAdd.setDisable(true);
+            btnAdd.setVisible(true);
+            btnAdd.setDisable(false);
+            btnEdit.setDisable(false);
+            btnInStock.setDisable(false);
+            btnOutStock.setDisable(false);
+        } else if (mouseEvent.getSource() == btnEdit) {
+            btnConfirmEdit.setVisible(true);
+            btnConfirmEdit.setDisable(false);
+            btnCancelEdit.setVisible(true);
+            btnCancelEdit.setDisable(false);
+            btnEdit.setVisible(false);
+            btnEdit.setDisable(true);
+            btnAdd.setDisable(true);
+            btnInStock.setDisable(true);
+            btnOutStock.setDisable(true);
+        } else if (mouseEvent.getSource() == btnCancelEdit) {
+            btnConfirmEdit.setVisible(false);
+            btnConfirmEdit.setDisable(true);
+            btnCancelEdit.setVisible(false);
+            btnCancelEdit.setDisable(true);
+            btnEdit.setVisible(true);
+            btnEdit.setDisable(false);
+            btnAdd.setDisable(false);
+            btnInStock.setDisable(false);
+            btnOutStock.setDisable(false);
+        } else if (mouseEvent.getSource() == btnConfirmEdit) {
+            String newName = txtName.getText();
+            String newPriceM = txtPriceM.getText();
+            String newPriceL = txtPriceL.getText();
+            String newPromo = txtPromo.getText();
+            String newType = cbxCategory2.getSelectionModel().getSelectedItem();
+            String oldName = selectedItem.getName();
+            String oldPriceM = selectedItem.getPriceM().toString();
+            String oldPriceL = selectedItem.getPriceL().toString();
+            String oldPromo = selectedItem.getPromo().toString();
+            String oldType = selectedItem.getType();
+            String oldValues = oldName + oldPriceM + oldPriceL + oldPromo + oldType;
+            String newValues = newName + newPriceM + newPriceL + newPromo + newType;
+            System.out.println(oldValues);
+            System.out.println(newValues);
+            if (oldValues.equals(newValues)) {
+                lblNoti.setText("Nothing changes!");
+            } else {
+                if (newPromo.isBlank()) {
+                    newPromo = "0";
+                }
+                Item newItem = new Item(0, newName, newType, Integer.parseInt(newPriceM), Integer.parseInt(newPriceL)
+                        , "in stock", Integer.parseInt(newPromo));
+                System.out.println(newItem);
+            }
+            btnConfirmEdit.setVisible(false);
+            btnConfirmEdit.setDisable(true);
+            btnCancelEdit.setVisible(false);
+            btnCancelEdit.setDisable(true);
+            btnEdit.setVisible(true);
+            btnEdit.setDisable(false);
+            btnAdd.setDisable(false);
+            btnInStock.setDisable(false);
+            btnOutStock.setDisable(false);
+        }
+    }
+
+    public void handleClickTable(MouseEvent mouseEvent) {
+        Item i = tableItem.getSelectionModel().getSelectedItem();
+        selectedItem = i;
+        btnEdit.setDisable(i == null);
+        txtName.setText(i.getName());
+        txtPriceM.setText(i.getPriceM().toString());
+        txtPriceL.setText(i.getPriceL().toString());
+        txtPromo.setText(i.getPromo().toString());
+        switch (i.getType()) {
+            case "TRÀ SỮA": {
+                cbxCategory2.getSelectionModel().select("MILK TEA");
+                break;
+            }
+            case "TRÀ HOA QUẢ": {
+                cbxCategory2.getSelectionModel().select("FRUIT TEA");
+                break;
+            }
+            case "MACCHIATO": {
+                cbxCategory2.getSelectionModel().select("MACCHIATO");
+                break;
+            }
+            case "TOPPING": {
+                cbxCategory2.getSelectionModel().select("TOPPING");
+                break;
+            }
+            case "ĐỒ ĂN VẶT": {
+                cbxCategory2.getSelectionModel().select("FOOD");
+                break;
+            }
+        }
     }
 
     public void loadItemListFromDBToTable(String itemType) {
