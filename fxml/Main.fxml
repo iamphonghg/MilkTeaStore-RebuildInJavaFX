@@ -67,7 +67,7 @@
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnStaff" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="function-btn">
+            <Button fx:id="btnStaff" layoutX="10.0" layoutY="197.0" mnemonicParsing="false" onMouseClicked="#handleNavigation" prefHeight="50.0" prefWidth="50.0" styleClass="function-btn">
                <font>
                   <Font name="Open Sans Bold" size="18.0" />
                </font>

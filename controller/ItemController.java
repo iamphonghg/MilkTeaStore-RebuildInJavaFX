@@ -21,12 +21,6 @@ import java.util.ResourceBundle;
 
 public class ItemController implements Initializable {
     @FXML
-    private VBox pnItemList;
-
-    @FXML
-    private VBox pnDetailItem;
-
-    @FXML
     private TextField txtName;
 
     @FXML
@@ -92,27 +86,6 @@ public class ItemController implements Initializable {
     @FXML
     private Label lblNoti;
 
-    private Item selectedItem;
-
-    /*public static List<Item> itemList = loadListItemFromDBToList();
-
-    public static List<Item> loadListItemFromDBToList() {
-        List<Item> itemList = new ArrayList<>();
-        String query = "SELECT * FROM item ORDER BY item_name ASC";
-        ResultSet resultSet = MainController.connect.excuteQuerySelect(query);
-        try {
-            while (resultSet.next()) {
-                Item item = new Item(1, resultSet.getString("item_name"), resultSet.getString("item_type").trim(),
-                        resultSet.getInt("price_sizem"), resultSet.getInt("price_sizel"),
-                        resultSet.getString("item_status"), resultSet.getInt("discount_promo"));
-                itemList.add(item);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return itemList;
-    }*/
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cbxCategory.setItems(FXCollections.observableArrayList("MILK TEA", "FRUIT TEA", "MACCHIATO",
@@ -121,7 +94,7 @@ public class ItemController implements Initializable {
         cbxCategory2.setItems(FXCollections.observableArrayList("MILK TEA", "FRUIT TEA", "MACCHIATO",
                 "TOPPING", "FOOD"));
         cbxCategory2.setFocusTraversable(false);
-        loadItemListFromDBToTable("TRÀ SỮA");
+        loadItemListFromDBToTable("MILK TEA");
         handleCombobox();
     }
 
@@ -133,19 +106,19 @@ public class ItemController implements Initializable {
                 String selected = cbxCategory.getValue();
                 switch (selected) {
                     case "MILK TEA":
-                        loadItemListFromDBToTable("TRÀ SỮA");
+                        loadItemListFromDBToTable("MILK TEA");
                         break;
                     case "MACCHIATO":
                         loadItemListFromDBToTable("MACCHIATO");
                         break;
                     case "FRUIT TEA":
-                        loadItemListFromDBToTable("TRÀ HOA QUẢ");
+                        loadItemListFromDBToTable("FRUIT TEA");
                         break;
                     case "TOPPING":
                         loadItemListFromDBToTable("TOPPING");
                         break;
                     case "FOOD":
-                        loadItemListFromDBToTable("ĐỒ ĂN VẶT");
+                        loadItemListFromDBToTable("FOOD");
                         break;
                 }
             }
@@ -265,6 +238,7 @@ public class ItemController implements Initializable {
         }
     }
 
+    private Item selectedItem;
     public void handleClickTable(MouseEvent mouseEvent) {
         Item i = tableItem.getSelectionModel().getSelectedItem();
         selectedItem = i;
@@ -273,32 +247,10 @@ public class ItemController implements Initializable {
         txtPriceM.setText(i.getPriceM().toString());
         txtPriceL.setText(i.getPriceL().toString());
         txtPromo.setText(i.getPromo().toString());
-        switch (i.getType()) {
-            case "TRÀ SỮA": {
-                cbxCategory2.getSelectionModel().select("MILK TEA");
-                break;
-            }
-            case "TRÀ HOA QUẢ": {
-                cbxCategory2.getSelectionModel().select("FRUIT TEA");
-                break;
-            }
-            case "MACCHIATO": {
-                cbxCategory2.getSelectionModel().select("MACCHIATO");
-                break;
-            }
-            case "TOPPING": {
-                cbxCategory2.getSelectionModel().select("TOPPING");
-                break;
-            }
-            case "ĐỒ ĂN VẶT": {
-                cbxCategory2.getSelectionModel().select("FOOD");
-                break;
-            }
-        }
+        cbxCategory2.getSelectionModel().select(i.getType());
     }
 
-    public void loadItemListFromDBToTable(String itemType) {
-        tableItem.setItems(null);
+    public static List<Item> loadItemListFromDBToList(String itemType) {
         List<Item> itemList = new ArrayList<>();
         String query = "SELECT * FROM item WHERE item_type = '" + itemType + "' ORDER BY item_name ASC";
         ResultSet resultSet = MainController.connect.excuteQuerySelect(query);
@@ -308,29 +260,27 @@ public class ItemController implements Initializable {
                 String name = resultSet.getString("item_name");
                 Integer priceM = resultSet.getInt("price_sizem");
                 Integer priceL = resultSet.getInt("price_sizel");
-                String finalPriceL = null;
-                if (priceL != 0) {
-                    finalPriceL = String.valueOf(priceL);
-                }
                 String status = resultSet.getString("item_status");
                 Integer promo = resultSet.getInt("discount_promo");
-                String finalPromo = null;
-                if (promo != 0) {
-                    finalPromo = String.valueOf(promo);
-                }
                 Item item = new Item(++countIndex, name, itemType, priceM, priceL, status, promo);
                 itemList.add(item);
-                colNo.setCellValueFactory(new PropertyValueFactory<>("noInList"));
-                colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-                colPriceM.setCellValueFactory(new PropertyValueFactory<>("priceM"));
-                colPriceL.setCellValueFactory(new PropertyValueFactory<>("priceL"));
-                colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-                colPromo.setCellValueFactory(new PropertyValueFactory<>("promo"));
-                ObservableList<Item> items = FXCollections.observableArrayList(itemList);
-                tableItem.setItems(items);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return itemList;
+    }
+
+    public void loadItemListFromDBToTable(String itemType) {
+        tableItem.setItems(null);
+        List<Item> itemList = loadItemListFromDBToList(itemType);
+        colNo.setCellValueFactory(new PropertyValueFactory<>("noInList"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colPriceM.setCellValueFactory(new PropertyValueFactory<>("priceM"));
+        colPriceL.setCellValueFactory(new PropertyValueFactory<>("priceL"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        colPromo.setCellValueFactory(new PropertyValueFactory<>("promo"));
+        ObservableList<Item> items = FXCollections.observableArrayList(itemList);
+        tableItem.setItems(items);
     }
 }

@@ -98,6 +98,7 @@ public class MainController implements Initializable {
     private AnchorPane pnStack;
 
     private AnchorPane pnItem;
+    private AnchorPane pnStaff;
     private VBox pnOrder;
 
     public static DBConnect connect = new DBConnect();
@@ -110,11 +111,16 @@ public class MainController implements Initializable {
             pnItem = fxmlLoaderItem.load();
 
             FXMLLoader fxmlLoaderOrder = new FXMLLoader();
-            fxmlLoaderOrder.setLocation(getClass().getResource("../fxml/Order.fxml"));
+            fxmlLoaderOrder.setLocation(getClass().getResource("../fxml/order.fxml"));
             pnOrder = fxmlLoaderOrder.load();
 
-            pnStack.getChildren().add(pnOrder);
+            FXMLLoader fxmlLoaderStaff = new FXMLLoader();
+            fxmlLoaderStaff.setLocation(getClass().getResource("../fxml/staff.fxml"));
+            pnStaff = fxmlLoaderStaff.load();
+
+            pnStack.getChildren().add(pnStaff);
             pnStack.getChildren().add(pnItem);
+            pnStack.getChildren().add(pnOrder);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -139,6 +145,7 @@ public class MainController implements Initializable {
         } else if (mouseEvent.getSource() == btnItem) {
             pnItem.toFront();
         } else if (mouseEvent.getSource() == btnStaff) {
+            pnStaff.toFront();
         } else if (mouseEvent.getSource() == btnShift) {
         } else if (mouseEvent.getSource() == btnPromo) {
         } else if (mouseEvent.getSource() == btnAttendance) {

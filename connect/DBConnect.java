@@ -3,7 +3,7 @@ package connect;
 import java.sql.*;
 
 public class DBConnect {
-    private final String url = "jdbc:postgresql://localhost:5432/milktea";
+    private final String url = "jdbc:postgresql://localhost:5432/milktea-eng";
     private final String username = "postgres";
     private final String password = "1472";
     private static Statement statement = null;

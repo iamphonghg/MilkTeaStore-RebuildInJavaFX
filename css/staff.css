@@ -49,9 +49,21 @@
     -fx-font-size: 14;
 }
 
-.cbx-category {
-    -fx-border-radius: 12;
+.cbx-year {
+    -fx-border-radius: 0 8 8 0;
+    -fx-font-size: 13;
 }
+
+.cbx-month {
+    -fx-border-radius: 0;
+    -fx-font-size: 13;
+}
+
+.cbx-day {
+    -fx-border-radius: 8 0 0 8;
+    -fx-font-size: 13;
+}
+
 
 .btn-add-new {
     -fx-border-radius: 20;
@@ -114,3 +126,6 @@
     -fx-font-family: "Iciel Panton Light";
 }
 
+.date-picker-popup .spinner-label {
+    -fx-font-size: 10;
+}
