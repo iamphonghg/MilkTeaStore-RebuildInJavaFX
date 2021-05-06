@@ -99,7 +99,7 @@ public class MainController implements Initializable {
 
     private AnchorPane pnItem;
     private AnchorPane pnStaff;
-    private VBox pnOrder;
+    private AnchorPane pnOrder;
 
     public static DBConnect connect = new DBConnect();
 

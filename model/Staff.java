@@ -10,6 +10,7 @@ public class Staff {
     private String position;
     private String phoneNumber;
     private String status;
+    private String imageName = "not valid";
 
     public Staff(String id, String name, Character gender, String birthday, String position, String phoneNumber,
                  String status) {
@@ -71,15 +72,24 @@ public class Staff {
         this.status = status;
     }
 
+    public String getImageName() {
+        return imageName;
+    }
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
     @Override
     public String toString() {
         return "Staff{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", gender=" + gender +
-                ", birthday=" + birthday +
+                ", birthday='" + birthday + '\'' +
                 ", position='" + position + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", status='" + status + '\'' +
+                ", imagePath='" + imageName + '\'' +
                 '}';
     }
 }

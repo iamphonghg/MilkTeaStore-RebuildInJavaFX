@@ -19,7 +19,7 @@
                <children>
                   <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../image/milk-tea-logo-2_2.png" />
+                        <Image url="@../logo/milk-tea-logo-2_2.png" />
                      </image>
                   </ImageView>
                </children></Pane>

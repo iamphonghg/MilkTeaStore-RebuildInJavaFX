@@ -1,0 +1,131 @@
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-background-color: #e8eff2;
+    -fx-cell-size: 20;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #002060;
+    -fx-alignment: CENTER;
+    -fx-border-radius: 12px;
+    -fx-font-family: "Iciel Panton Black";
+    -fx-font-size: 15;
+}
+
+.label {
+    -fx-font-family: "Iciel Panton Black";
+}
+
+.main-label {
+}
+
+.sub-main-label {
+    -fx-font-family: "Iciel Panton Light";
+    -fx-font-size: 15;
+}
+.table-view .cell {
+    -fx-font-family: "Iciel Panton Light";
+    -fx-text-fill: #002060;
+    -fx-alignment: center;
+    -fx-font-size: 14;
+}
+
+.table-view #colName {
+    -fx-alignment: center-left;
+}
+
+.table-row-cell:selected {
+    -fx-background-color:  #00b0f0;
+}
+.table-row-cell:selected .text {
+    -fx-fill : white;
+}
+
+.combo-box {
+    -fx-background-color : #ffffff;
+    -fx-border-color:  #002060;
+    -fx-border-radius: 8;
+    -fx-font-family: "Iciel Panton Light";
+    -fx-font-size: 14;
+}
+
+.cbx-year {
+    -fx-border-radius: 0 8 8 0;
+    -fx-font-size: 13;
+}
+
+.cbx-month {
+    -fx-border-radius: 0;
+    -fx-font-size: 13;
+}
+
+.cbx-day {
+    -fx-border-radius: 8 0 0 8;
+    -fx-font-size: 13;
+}
+
+
+.btn-add-new {
+    -fx-border-radius: 20;
+    -fx-border-color: #002060;
+    -fx-background-radius: 20;
+    -fx-background-color: #002060;
+    -fx-font-family: "Iciel Panton Black";
+    -fx-font-size: 17;
+}
+.btn-edit {
+    -fx-border-radius: 20;
+    -fx-border-color: #002060;
+    -fx-background-radius: 20;
+    -fx-background-color: #ffffff;
+    -fx-font-family: "Iciel Panton Black";
+    -fx-font-size: 17;
+}
+
+.btn-confirm-edit, .btn-confirm-add {
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-background-color: green;
+    -fx-font-family: "Iciel Panton Black";
+    -fx-text-fill: white;
+    -fx-font-size: 17;
+}
+
+.btn-cancel-edit, .btn-cancel-add {
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-background-color: rgb(192, 15, 15);
+    -fx-font-family: "Iciel Panton Black";
+    -fx-text-fill: white;
+    -fx-font-size: 17;
+}
+
+.btn-out-stock {
+    -fx-border-radius: 20;
+    -fx-border-color: red;
+    -fx-background-radius: 20;
+    -fx-background-color: #ffffff;
+    -fx-font-family: "Iciel Panton Black";
+    -fx-font-size: 15;
+}
+.btn-in-stock {
+    -fx-border-radius: 20;
+    -fx-border-color: green;
+    -fx-background-radius: 20;
+    -fx-background-color: #ffffff;
+    -fx-font-family: "Iciel Panton Black";
+    -fx-font-size: 15;
+}
+
+.text-field {
+    -fx-font-family: "Iciel Panton Light";
+    -fx-font-size: 14;
+}
+
+.lblNoti {
+    -fx-font-family: "Iciel Panton Light";
+}
+
+.date-picker-popup .spinner-label {
+    -fx-font-size: 10;
+}
