@@ -143,6 +143,7 @@ public class ItemController implements Initializable {
             btnEdit.setDisable(true);
             btnInStock.setDisable(true);
             btnOutStock.setDisable(true);
+            tableItem.setDisable(true);
         } else if (mouseEvent.getSource() == btnCancelAdd) {
             btnConfirmAdd.setVisible(false);
             btnConfirmAdd.setDisable(true);
@@ -153,6 +154,7 @@ public class ItemController implements Initializable {
             btnEdit.setDisable(false);
             btnInStock.setDisable(false);
             btnOutStock.setDisable(false);
+            tableItem.setDisable(false);
         } else if (mouseEvent.getSource() == btnConfirmAdd) {
             String name = txtName.getText();
             String priceM = txtPriceM.getText();
@@ -181,6 +183,7 @@ public class ItemController implements Initializable {
             btnEdit.setDisable(false);
             btnInStock.setDisable(false);
             btnOutStock.setDisable(false);
+            tableItem.setDisable(false);
         } else if (mouseEvent.getSource() == btnEdit) {
             btnConfirmEdit.setVisible(true);
             btnConfirmEdit.setDisable(false);
@@ -191,6 +194,7 @@ public class ItemController implements Initializable {
             btnAdd.setDisable(true);
             btnInStock.setDisable(true);
             btnOutStock.setDisable(true);
+            tableItem.setDisable(true);
         } else if (mouseEvent.getSource() == btnCancelEdit) {
             btnConfirmEdit.setVisible(false);
             btnConfirmEdit.setDisable(true);
@@ -201,6 +205,7 @@ public class ItemController implements Initializable {
             btnAdd.setDisable(false);
             btnInStock.setDisable(false);
             btnOutStock.setDisable(false);
+            tableItem.setDisable(false);
         } else if (mouseEvent.getSource() == btnConfirmEdit) {
             String newName = txtName.getText();
             String newPriceM = txtPriceM.getText();
@@ -235,6 +240,7 @@ public class ItemController implements Initializable {
             btnAdd.setDisable(false);
             btnInStock.setDisable(false);
             btnOutStock.setDisable(false);
+            tableItem.setDisable(false);
         }
     }
 

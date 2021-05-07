@@ -37,9 +37,6 @@
 .table-row-cell:selected {
     -fx-background-color:  #00b0f0;
 }
-.table-row-cell:selected .text {
-    -fx-fill : white;
-}
 
 .combo-box {
     -fx-background-color : #ffffff;
@@ -107,6 +104,7 @@
 
 .text-field {
     -fx-font-family: "Iciel Panton Light";
+    -fx-text-fill: #002060;
     -fx-font-size: 14;
 }
 

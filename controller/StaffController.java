@@ -6,6 +6,7 @@ import javafx.collections.ObservableListBase;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -17,15 +18,14 @@ import javafx.stage.FileChooser;
 import model.Staff;
 import org.apache.commons.io.FileUtils;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class StaffController implements Initializable {
@@ -84,6 +84,18 @@ public class StaffController implements Initializable {
     private Button btnRetire;
 
     @FXML
+    private Button btnConfirmAdd;
+
+    @FXML
+    private Button btnCancelAdd;
+
+    @FXML
+    private Button btnCancelEdit;
+
+    @FXML
+    private Button btnConfirmEdit;
+
+    @FXML
     private Label lblNoti;
 
     @FXML
@@ -100,15 +112,189 @@ public class StaffController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        List<String> genderList = new ArrayList<>();
+        genderList.add("Male");
+        genderList.add("Female");
+        genderList.add("Other");
+        cbxGender.setItems(FXCollections.observableArrayList(genderList));
+
+        List<String> positionList = new ArrayList<>();
+        positionList.add("Waiter");
+        positionList.add("Manager");
+        cbxPosition.setItems(FXCollections.observableArrayList(positionList));
+
         addItemToCbxBirthday();
         loadStaffListFromDBToTable();
     }
 
+    public List<Staff> currentStaffList;
 
+    public boolean checkDuplicateID(String id) {
+        for (Staff staff : currentStaffList) {
+            if (staff.getId().equals(id)) {
+                return false;
+            }
+        }
+        return true;   //true la khong trung
+    }
+
+    public String randomGenID() {
+        Random random = new Random();
+        String newId = null;
+        do {
+            newId = "NV" + (random.nextInt(9999 - 1000 + 1) + 1000);
+        } while (!checkDuplicateID(newId));
+        return newId;
+    }
 
     public void eventButton(MouseEvent mouseEvent) {
+        if (mouseEvent.getSource() == btnAdd) {
+            txtID.setText(randomGenID());
+            txtName.setText("");
+            cbxPosition.getSelectionModel().select(0);
+            txtPhone.setText("");
+            cbxGender.getSelectionModel().select(0);
+            cbxYear.getSelectionModel().select("2000");
+            cbxMonth.getSelectionModel().select("1");
+            cbxDay.getSelectionModel().select("1");
 
+            btnAdd.setVisible(false);
+            setVisible(true, btnConfirmAdd, btnCancelAdd);
+            setDisable(false, btnConfirmAdd, btnCancelAdd);
+            setDisable(true, btnAdd, btnEdit, btnRetire, tableStaff, btnAddImage, btnRemoveImage);
+        } else if (mouseEvent.getSource() == btnCancelAdd) {
+            btnAdd.setVisible(true);
+            setVisible(false, btnConfirmAdd, btnCancelAdd);
+            setDisable(false, btnAdd, tableStaff);
+            setDisable(true, btnConfirmAdd, btnCancelAdd);
+        } else if (mouseEvent.getSource() == btnConfirmAdd) {
+            btnAdd.setVisible(true);
+            setDisable(false, btnAdd, tableStaff);
+            setVisible(false, btnConfirmAdd, btnCancelAdd);
+            setDisable(true, btnConfirmAdd, btnCancelAdd);
+
+            String id = txtID.getText();
+            String name = txtName.getText();
+            String position = cbxPosition.getSelectionModel().getSelectedItem();
+            String phone = txtPhone.getText();
+            Character gender = cbxGender.getSelectionModel().getSelectedItem().charAt(0);
+            String year = cbxYear.getSelectionModel().getSelectedItem();
+            String month = cbxMonth.getSelectionModel().getSelectedItem();
+            String day = cbxDay.getSelectionModel().getSelectedItem();
+            String birthday = year + "-" + month + "-" + day;
+            if (name.isBlank()) {
+                lblNoti.setText("Do not leave the name blank!");
+            } else {
+                insertStaffIntoDB(id, name, gender, birthday, position, phone);
+            }
+        } else if (mouseEvent.getSource() == btnEdit) {
+            btnEdit.setVisible(false);
+            setDisable(true, btnAdd, tableStaff, btnRetire, btnAddImage, btnRemoveImage, btnEdit);
+            setVisible(true, btnConfirmEdit, btnCancelEdit);
+            setDisable(false, btnConfirmEdit, btnCancelEdit);
+        } else if (mouseEvent.getSource() == btnCancelEdit) {
+            btnEdit.setVisible(true);
+            setVisible(false, btnConfirmEdit, btnCancelEdit);
+            setDisable(true, btnConfirmEdit, btnCancelEdit);
+            setDisable(false, tableStaff, btnAdd);
+        } else if (mouseEvent.getSource() == btnConfirmEdit) {
+            btnEdit.setVisible(true);
+            setVisible(false, btnConfirmEdit, btnCancelEdit);
+            setDisable(true, btnConfirmEdit, btnCancelEdit);
+            setDisable(false, tableStaff, btnAdd);
+
+            String id = txtID.getText();
+            String newName = txtName.getText();
+            char newGender = cbxGender.getSelectionModel().getSelectedItem().charAt(0);
+            String newPosition = cbxPosition.getSelectionModel().getSelectedItem();
+            String newPhone = txtPhone.getText();
+            String year = cbxYear.getSelectionModel().getSelectedItem();
+            String month = cbxMonth.getSelectionModel().getSelectedItem();
+            String day = cbxDay.getSelectionModel().getSelectedItem();
+            String newBirthday = year + "-" + month + "-" + day;
+            String newValues = newName + newGender + newPosition + newPhone + newBirthday;
+
+            String oldName = selectedStaff.getName();
+            String oldGender = selectedStaff.getGender() + "";
+            String oldPosition = selectedStaff.getPosition();
+            String oldPhone = selectedStaff.getPhoneNumber();
+            String oldBirthday = selectedStaff.getBirthday();
+            String oldValues = oldName + oldGender + oldPosition + oldPhone + oldBirthday;
+
+            System.out.println(newValues);
+            System.out.println(oldValues);
+            if (newValues.equals(oldValues)) {
+                lblNoti.setText("Nothing changes!");
+            } else {
+                updateStaffIntoDB(id, newName, newGender + "", newBirthday, newPosition, newPhone);
+            }
+        } else if (mouseEvent.getSource() == btnRetire) {
+            updateStaffStatusIntoDB(selectedStaff.getId());
+        }
     }
+
+    public void updateStaffIntoDB(String id, String newName, String newGender, String newBirthday, String newPosition, String newPhoneNumber) {
+        if (newPhoneNumber != null) {
+            newPhoneNumber = "'" + newPhoneNumber + "'";
+        }
+        String query = "UPDATE staff " +
+                "SET staff_name = '" + newName + "', " +
+                "gender = '" + newGender + "', " +
+                "birthday = '" + newBirthday + "', " +
+                "position = '" + newPosition + "', " +
+                "phone_number = " + newPhoneNumber + " " +
+                "WHERE staff_id = '" + id + "'";
+        boolean res = MainController.connect.excuteQueryUpdate(query);
+        if (res) {
+            loadStaffListFromDBToTable();
+            lblNoti.setText("Successfully updated.");
+        } else {
+            lblNoti.setText("Update failed!");
+        }
+    }
+
+    public void insertStaffIntoDB(String id, String name, Character gender, String birthday, String position,
+                                  String phoneNumber) {
+        if (phoneNumber.isBlank()) {
+            phoneNumber = null;
+        } else {
+            phoneNumber = "'" + phoneNumber + "'";
+        }
+        String query = "INSERT INTO staff VALUES ('" + id + "', '" + name + "', '" + gender + "', '" + birthday
+                + "', '" + position + "', " + phoneNumber + ", 'working', null)";
+        boolean res = MainController.connect.excuteQueryUpdate(query);
+        if (res) {
+            loadStaffListFromDBToTable();
+            lblNoti.setText("Successfully inserted.");
+        } else {
+            lblNoti.setText("Insert failed!");
+        }
+    }
+
+    public void updateStaffStatusIntoDB(String id) {
+        String query = "UPDATE staff SET staff_status = 'retired' " +
+                "WHERE staff_id = '" + id + "'";
+        boolean res = MainController.connect.excuteQueryUpdate(query);
+        if (res) {
+            loadStaffListFromDBToTable();
+            lblNoti.setText("Successfully updated.");
+        } else {
+            lblNoti.setText("Update failed!");
+        }
+    }
+
+    public void setDisable(boolean trueOrFalse, Node... nodes) {
+        for (Node b : nodes) {
+            b.setDisable(trueOrFalse);
+        }
+    }
+
+    public void setVisible(boolean trueOrFalse, Node... nodes) {
+        for (Node b : nodes) {
+            b.setVisible(trueOrFalse);
+        }
+    }
+
     public void handleAddAndRemoveImage(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getSource() == btnAddImage) {
             FileChooser fileChooser = new FileChooser();
@@ -116,14 +302,14 @@ public class StaffController implements Initializable {
             String[] splitImageName = selectFile.getAbsolutePath().split(Pattern.quote("\\"));
             String imageName = splitImageName[splitImageName.length - 1];
             selectedStaff.setImageName(imageName);
+            updateImageNameIntoDB(imageName, selectedStaff.getId());
+            circle.setFill(new ImagePattern(new Image("file:" + selectFile)));
             File destination = new File("src/image/staff");
             FileUtils.copyFileToDirectory(selectFile, destination);
-            circle.setFill(new ImagePattern(new Image(pathToImageDirectory + imageName)));
-            updateImageNameIntoDB(imageName, selectedStaff.getId());
-        }
-        if (mouseEvent.getSource() == btnRemoveImage) {
+        } else if (mouseEvent.getSource() == btnRemoveImage) {
             updateImageNameIntoDB("null", selectedStaff.getId());
             circle.setFill(null);
+            FileUtils.forceDelete(new File("D:\\JavaProject\\MilkTeaStore-RebuildInJavaFX\\src\\image\\staff\\" + selectedStaff.getImageName()));
             selectedStaff.setImageName("not valid");
         }
     }
@@ -163,7 +349,6 @@ public class StaffController implements Initializable {
     }
 
     private void addItemCbxDay(int maxDay) {
-
     }
 
     public Staff selectedStaff;
@@ -174,7 +359,9 @@ public class StaffController implements Initializable {
         if (selectedStaff != s) {
             circle.setFill(null);
             selectedStaff = s;
-            btnEdit.setDisable(s == null);
+            if (s != null) {
+                setDisable(false, btnEdit, btnAddImage, btnRemoveImage, btnRetire);
+            }
             if (!s.getImageName().equals("not valid")) {
                 circle.setFill(new ImagePattern(new Image(pathToImageDirectory + s.getImageName())));
             }
@@ -200,6 +387,7 @@ public class StaffController implements Initializable {
         }
     }
 
+
     public List<Staff> loadStaffListFromDBToList() {
         List<Staff> staffList = new ArrayList<>();
         String query = "SELECT * FROM staff ORDER BY staff_name ASC";
@@ -223,6 +411,7 @@ public class StaffController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        currentStaffList = staffList;
         return staffList;
     }
 

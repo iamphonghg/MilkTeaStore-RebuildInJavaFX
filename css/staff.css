@@ -37,9 +37,6 @@
 .table-row-cell:selected {
     -fx-background-color:  #00b0f0;
 }
-.table-row-cell:selected .text {
-    -fx-fill : white;
-}
 
 .combo-box {
     -fx-background-color : #ffffff;
@@ -88,7 +85,7 @@
     -fx-background-color: green;
     -fx-font-family: "Iciel Panton Black";
     -fx-text-fill: white;
-    -fx-font-size: 17;
+    -fx-font-size: 15;
 }
 
 .btn-cancel-edit, .btn-cancel-add {
@@ -97,35 +94,25 @@
     -fx-background-color: rgb(192, 15, 15);
     -fx-font-family: "Iciel Panton Black";
     -fx-text-fill: white;
-    -fx-font-size: 17;
-}
-
-.btn-out-stock {
-    -fx-border-radius: 20;
-    -fx-border-color: red;
-    -fx-background-radius: 20;
-    -fx-background-color: #ffffff;
-    -fx-font-family: "Iciel Panton Black";
     -fx-font-size: 15;
 }
-.btn-in-stock {
+
+.btn-retire {
     -fx-border-radius: 20;
-    -fx-border-color: green;
+    -fx-border-color: rgb(192, 15, 15);
     -fx-background-radius: 20;
     -fx-background-color: #ffffff;
     -fx-font-family: "Iciel Panton Black";
+    -fx-text-fill: rgb(192, 15, 15);
     -fx-font-size: 15;
 }
 
 .text-field {
     -fx-font-family: "Iciel Panton Light";
+    -fx-text-fill: #002060;
     -fx-font-size: 14;
 }
 
 .lblNoti {
     -fx-font-family: "Iciel Panton Light";
-}
-
-.date-picker-popup .spinner-label {
-    -fx-font-size: 10;
 }
