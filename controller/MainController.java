@@ -5,6 +5,7 @@ import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -102,7 +103,17 @@ public class MainController implements Initializable {
     private AnchorPane pnOrder;
 
     public static DBConnect connect = new DBConnect();
+    public static void setDisable(boolean trueOrFalse, Node... nodes) {
+        for (Node b : nodes) {
+            b.setDisable(trueOrFalse);
+        }
+    }
 
+    public static void setVisible(boolean trueOrFalse, Node... nodes) {
+        for (Node b : nodes) {
+            b.setVisible(trueOrFalse);
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {

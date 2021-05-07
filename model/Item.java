@@ -8,6 +8,7 @@ public class Item {
     private Integer priceL;
     private String status;
     private Integer promo;
+    private String imageName = "not valid";
 
     public Item(Integer noInList, String name, String type, Integer priceM, Integer priceL, String status,
                 Integer promo) {
@@ -69,15 +70,24 @@ public class Item {
         this.promo = promo;
     }
 
+    public String getImageName() {
+        return imageName;
+    }
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
-                "name='" + name + '\'' +
+                "noInList=" + noInList +
+                ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", priceM=" + priceM +
                 ", priceL=" + priceL +
                 ", status='" + status + '\'' +
                 ", promo=" + promo +
+                ", imageName='" + imageName + '\'' +
                 '}';
     }
 }

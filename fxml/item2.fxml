@@ -7,8 +7,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="680.0" minWidth="1230.0" prefHeight="680.0" prefWidth="1230.0" style="-fx-background-color: #e8eff2;" stylesheets="@../css/item.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemController">
@@ -86,32 +86,32 @@
                         <Font size="17.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnOutStock" layoutX="245.0" layoutY="467.0" mnemonicParsing="false" onMouseClicked="#eventButton" prefHeight="35.0" prefWidth="110.0" styleClass="btn-out-stock" text="OUT STOCK" textFill="#002060">
+                  <Button fx:id="btnOutStock" disable="true" layoutX="245.0" layoutY="467.0" mnemonicParsing="false" onMouseClicked="#eventButton" prefHeight="35.0" prefWidth="110.0" styleClass="btn-out-stock" text="OUT STOCK" textFill="#002060">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnInStock" layoutX="114.0" layoutY="467.0" mnemonicParsing="false" onMouseClicked="#eventButton" prefHeight="35.0" prefWidth="110.0" styleClass="btn-in-stock" text="IN STOCK" textFill="#002060">
+                  <Button fx:id="btnInStock" disable="true" layoutX="114.0" layoutY="467.0" mnemonicParsing="false" onMouseClicked="#eventButton" prefHeight="35.0" prefWidth="110.0" styleClass="btn-in-stock" text="IN STOCK" textFill="#002060">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Button>
-                  <AnchorPane layoutX="207.0" layoutY="63.0" maxHeight="180.0" maxWidth="180.0" minHeight="180.0" minWidth="180.0" prefHeight="180.0" prefWidth="180.0" style="-fx-border-color: #002060; -fx-border-radius: 15;">
+                  <AnchorPane layoutX="207.0" layoutY="63.0" maxHeight="180.0" maxWidth="180.0" minHeight="180.0" minWidth="180.0" prefHeight="180.0" prefWidth="180.0">
                      <children>
                         <FontAwesomeIconView fill="#002060" glyphName="IMAGE" layoutX="53.0" layoutY="115.0" selectionFill="#002060" size="70">
                            <font>
                               <Font size="59.0" />
                            </font>
                         </FontAwesomeIconView>
-                        <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" />
+                        <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="180.0" stroke="#002060" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" style="-fx-arc-height: 30; -fx-arc-width: 30;" width="180.0" />
                      </children>
                   </AnchorPane>
-                  <Button layoutX="335.0" layoutY="255.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #002060; -fx-background-radius: 15;">
+                  <Button fx:id="btnAddImage" disable="true" layoutX="335.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#handleAddAndRemoveImage" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #002060; -fx-background-radius: 15;">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="FILE_IMAGE_ALT" />
                      </graphic>
                   </Button>
-                  <Button layoutX="297.0" layoutY="255.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: none; -fx-border-radius: 15; -fx-border-color: #002060;">
+                  <Button fx:id="btnRemoveImage" disable="true" layoutX="297.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#handleAddAndRemoveImage" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: none; -fx-border-radius: 15; -fx-border-color: #002060;">
                      <graphic>
                         <FontAwesomeIconView fill="#002060" glyphName="TRASH_ALT" size="14" />
                      </graphic>

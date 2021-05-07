@@ -159,19 +159,19 @@ public class StaffController implements Initializable {
             cbxDay.getSelectionModel().select("1");
 
             btnAdd.setVisible(false);
-            setVisible(true, btnConfirmAdd, btnCancelAdd);
-            setDisable(false, btnConfirmAdd, btnCancelAdd);
-            setDisable(true, btnAdd, btnEdit, btnRetire, tableStaff, btnAddImage, btnRemoveImage);
+            MainController.setVisible(true, btnConfirmAdd, btnCancelAdd);
+            MainController.setDisable(false, btnConfirmAdd, btnCancelAdd);
+            MainController.setDisable(true, btnAdd, btnEdit, btnRetire, tableStaff, btnAddImage, btnRemoveImage);
         } else if (mouseEvent.getSource() == btnCancelAdd) {
             btnAdd.setVisible(true);
-            setVisible(false, btnConfirmAdd, btnCancelAdd);
-            setDisable(false, btnAdd, tableStaff);
-            setDisable(true, btnConfirmAdd, btnCancelAdd);
+            MainController.setVisible(false, btnConfirmAdd, btnCancelAdd);
+            MainController.setDisable(false, btnAdd, tableStaff);
+            MainController.setDisable(true, btnConfirmAdd, btnCancelAdd);
         } else if (mouseEvent.getSource() == btnConfirmAdd) {
             btnAdd.setVisible(true);
-            setDisable(false, btnAdd, tableStaff);
-            setVisible(false, btnConfirmAdd, btnCancelAdd);
-            setDisable(true, btnConfirmAdd, btnCancelAdd);
+            MainController.setDisable(false, btnAdd, tableStaff);
+            MainController.setVisible(false, btnConfirmAdd, btnCancelAdd);
+            MainController.setDisable(true, btnConfirmAdd, btnCancelAdd);
 
             String id = txtID.getText();
             String name = txtName.getText();
@@ -189,19 +189,19 @@ public class StaffController implements Initializable {
             }
         } else if (mouseEvent.getSource() == btnEdit) {
             btnEdit.setVisible(false);
-            setDisable(true, btnAdd, tableStaff, btnRetire, btnAddImage, btnRemoveImage, btnEdit);
-            setVisible(true, btnConfirmEdit, btnCancelEdit);
-            setDisable(false, btnConfirmEdit, btnCancelEdit);
+            MainController.setDisable(true, btnAdd, tableStaff, btnRetire, btnAddImage, btnRemoveImage, btnEdit);
+            MainController.setVisible(true, btnConfirmEdit, btnCancelEdit);
+            MainController.setDisable(false, btnConfirmEdit, btnCancelEdit);
         } else if (mouseEvent.getSource() == btnCancelEdit) {
             btnEdit.setVisible(true);
-            setVisible(false, btnConfirmEdit, btnCancelEdit);
-            setDisable(true, btnConfirmEdit, btnCancelEdit);
-            setDisable(false, tableStaff, btnAdd);
+            MainController.setVisible(false, btnConfirmEdit, btnCancelEdit);
+            MainController.setDisable(true, btnConfirmEdit, btnCancelEdit);
+            MainController.setDisable(false, tableStaff, btnAdd);
         } else if (mouseEvent.getSource() == btnConfirmEdit) {
             btnEdit.setVisible(true);
-            setVisible(false, btnConfirmEdit, btnCancelEdit);
-            setDisable(true, btnConfirmEdit, btnCancelEdit);
-            setDisable(false, tableStaff, btnAdd);
+            MainController.setVisible(false, btnConfirmEdit, btnCancelEdit);
+            MainController.setDisable(true, btnConfirmEdit, btnCancelEdit);
+            MainController.setDisable(false, tableStaff, btnAdd);
 
             String id = txtID.getText();
             String newName = txtName.getText();
@@ -283,18 +283,6 @@ public class StaffController implements Initializable {
         }
     }
 
-    public void setDisable(boolean trueOrFalse, Node... nodes) {
-        for (Node b : nodes) {
-            b.setDisable(trueOrFalse);
-        }
-    }
-
-    public void setVisible(boolean trueOrFalse, Node... nodes) {
-        for (Node b : nodes) {
-            b.setVisible(trueOrFalse);
-        }
-    }
-
     public void handleAddAndRemoveImage(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getSource() == btnAddImage) {
             FileChooser fileChooser = new FileChooser();
@@ -358,32 +346,31 @@ public class StaffController implements Initializable {
         Staff s = tableStaff.getSelectionModel().getSelectedItem();
         if (selectedStaff != s) {
             circle.setFill(null);
-            selectedStaff = s;
             if (s != null) {
-                setDisable(false, btnEdit, btnAddImage, btnRemoveImage, btnRetire);
+                MainController.setDisable(false, btnEdit, btnAddImage, btnRemoveImage, btnRetire);
+                selectedStaff = s;
+                if (!s.getImageName().equals("not valid")) {
+                    circle.setFill(new ImagePattern(new Image(pathToImageDirectory + s.getImageName())));
+                }
+                txtID.setText(s.getId());
+                txtName.setText(s.getName());
+                cbxPosition.getSelectionModel().select(s.getPosition());
+                txtPhone.setText(s.getPhoneNumber());
+                if (s.getGender().equals('M')) {
+                    cbxGender.getSelectionModel().select("Male");
+                } else if (s.getGender() == 'F') {
+                    cbxGender.getSelectionModel().select("Female");
+                } else {
+                    cbxGender.getSelectionModel().select("Other");
+                }
+                String[] selectedBirthday = selectedStaff.getBirthday().split("-");
+                selectedYear = Integer.parseInt(selectedBirthday[0]);
+                selectedMonth = Integer.parseInt(selectedBirthday[1]);
+                selectedDay = Integer.parseInt(selectedBirthday[2]);
+                cbxYear.getSelectionModel().select(selectedYear + "");
+                cbxMonth.getSelectionModel().select(selectedMonth + "");
+                cbxDay.getSelectionModel().select(selectedDay + "");
             }
-            if (!s.getImageName().equals("not valid")) {
-                circle.setFill(new ImagePattern(new Image(pathToImageDirectory + s.getImageName())));
-            }
-            txtID.setText(s.getId());
-            txtName.setText(s.getName());
-            cbxPosition.getSelectionModel().select(s.getPosition());
-            txtPhone.setText(s.getPhoneNumber());
-            if (s.getGender().equals('M')) {
-                cbxGender.getSelectionModel().select("Male");
-            } else if (s.getGender() == 'F') {
-                cbxGender.getSelectionModel().select("Female");
-            } else {
-                cbxGender.getSelectionModel().select("Other");
-            }
-
-            String[] selectedBirthday = selectedStaff.getBirthday().split("-");
-            selectedYear = Integer.parseInt(selectedBirthday[0]);
-            selectedMonth = Integer.parseInt(selectedBirthday[1]);
-            selectedDay = Integer.parseInt(selectedBirthday[2]);
-            cbxYear.getSelectionModel().select(selectedYear + "");
-            cbxMonth.getSelectionModel().select(selectedMonth + "");
-            cbxDay.getSelectionModel().select(selectedDay + "");
         }
     }
 

@@ -8,81 +8,75 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 import main.Main;
 import model.Item;
+import org.apache.commons.io.FileUtils;
 
+import javax.swing.table.DefaultTableModel;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class ItemController implements Initializable {
     @FXML
     private TextField txtName;
-
     @FXML
     private ComboBox<String> cbxCategory2;
-
     @FXML
     private TextField txtPriceM;
-
     @FXML
     private TextField txtPriceL;
-
     @FXML
     private TextField txtPromo;
-
     @FXML
     private ComboBox<String> cbxCategory;
-
     @FXML
     private TableView<Item> tableItem;
-
     @FXML
     private TableColumn<Item, Integer> colNo;
-
     @FXML
     private TableColumn<Item, String> colName;
-
     @FXML
     private TableColumn<Item, Integer> colPriceM;
-
     @FXML
     private TableColumn<Item, Integer> colPriceL;
-
     @FXML
     private TableColumn<Item, String> colStatus;
-
     @FXML
     private TableColumn<Item, Integer> colPromo;
-
     @FXML
     private Button btnAdd;
-
     @FXML
     private Button btnEdit;
-
     @FXML
     private Button btnOutStock;
-
     @FXML
     private Button btnInStock;
-
     @FXML
     private Button btnConfirmEdit;
-
     @FXML
     private Button btnCancelEdit;
-
     @FXML
     private Button btnConfirmAdd;
-
     @FXML
     private Button btnCancelAdd;
-
+    @FXML
+    private Button btnAddImage;
+    @FXML
+    private Button btnRemoveImage;
+    @FXML
+    private Rectangle rectangle;
     @FXML
     private Label lblNoti;
 
@@ -134,126 +128,251 @@ public class ItemController implements Initializable {
             txtPriceL.setText("");
             txtPromo.setText("");
             cbxCategory2.getSelectionModel().select(cbxCategory.getSelectionModel().getSelectedItem());
-            btnConfirmAdd.setVisible(true);
-            btnConfirmAdd.setDisable(false);
-            btnCancelAdd.setVisible(true);
-            btnCancelAdd.setDisable(false);
+
             btnAdd.setVisible(false);
-            btnAdd.setDisable(true);
-            btnEdit.setDisable(true);
-            btnInStock.setDisable(true);
-            btnOutStock.setDisable(true);
-            tableItem.setDisable(true);
+            MainController.setDisable(true, tableItem, btnAdd, btnEdit, btnInStock, btnOutStock, btnAddImage,
+                    btnRemoveImage);
+            MainController.setDisable(false, btnConfirmAdd, btnCancelAdd);
+            MainController.setVisible(true, btnConfirmAdd, btnCancelAdd);
         } else if (mouseEvent.getSource() == btnCancelAdd) {
-            btnConfirmAdd.setVisible(false);
-            btnConfirmAdd.setDisable(true);
-            btnCancelAdd.setVisible(false);
-            btnCancelAdd.setDisable(true);
             btnAdd.setVisible(true);
-            btnAdd.setDisable(false);
-            btnEdit.setDisable(false);
-            btnInStock.setDisable(false);
-            btnOutStock.setDisable(false);
-            tableItem.setDisable(false);
+            MainController.setDisable(false, tableItem, btnAdd);
+            MainController.setDisable(true, btnConfirmAdd, btnCancelAdd);
+            MainController.setVisible(false, btnConfirmAdd, btnCancelAdd);
         } else if (mouseEvent.getSource() == btnConfirmAdd) {
+            btnAdd.setVisible(true);
+            MainController.setDisable(false, tableItem, btnAdd);
+            MainController.setDisable(true, btnConfirmAdd, btnCancelAdd);
+            MainController.setVisible(false, btnConfirmAdd, btnCancelAdd);
+
             String name = txtName.getText();
             String priceM = txtPriceM.getText();
             String priceL = txtPriceL.getText();
             String promo = txtPromo.getText();
             String type = cbxCategory2.getSelectionModel().getSelectedItem();
-            if (name.isBlank() || priceM.isBlank() || priceL.isBlank()) {
+            if (name.isBlank() || priceM.isBlank() || (type.equals("TOPPING") && !priceL.isBlank())) {
                 lblNoti.setText("Can not add, please check again!");
             } else {
-                int promoInt = 0;
-                int priceMInt = Integer.parseInt(priceM);
-                int priceLInt = Integer.parseInt(priceL);
+                Integer promoInt = null;
+                Integer priceMInt = Integer.parseInt(priceM);
+                Integer priceLInt = null;
+                if (!priceL.isBlank() && !priceL.equals("0")) {
+                    priceLInt = Integer.parseInt(priceL);
+                }
                 if (!promo.isBlank() && !promo.equals("0")) {
                     promoInt = Integer.parseInt(promo);
                 }
-                Item i = new Item(0, name, type, priceMInt, priceLInt, "in stock", promoInt);
-                lblNoti.setText("Successfully added.");
-                System.out.println(i);
+                insertItemIntoDB(name, type, priceMInt, priceLInt, promoInt);
             }
-            btnConfirmAdd.setVisible(false);
-            btnConfirmAdd.setDisable(true);
-            btnCancelAdd.setVisible(false);
-            btnCancelAdd.setDisable(true);
-            btnAdd.setVisible(true);
-            btnAdd.setDisable(false);
-            btnEdit.setDisable(false);
-            btnInStock.setDisable(false);
-            btnOutStock.setDisable(false);
-            tableItem.setDisable(false);
         } else if (mouseEvent.getSource() == btnEdit) {
-            btnConfirmEdit.setVisible(true);
-            btnConfirmEdit.setDisable(false);
-            btnCancelEdit.setVisible(true);
-            btnCancelEdit.setDisable(false);
             btnEdit.setVisible(false);
-            btnEdit.setDisable(true);
-            btnAdd.setDisable(true);
-            btnInStock.setDisable(true);
-            btnOutStock.setDisable(true);
-            tableItem.setDisable(true);
+            MainController.setDisable(true, btnAdd, tableItem, btnInStock, btnOutStock, btnAddImage, btnRemoveImage, btnEdit);
+            MainController.setVisible(true, btnConfirmEdit, btnCancelEdit);
+            MainController.setDisable(false, btnConfirmEdit, btnCancelEdit);
         } else if (mouseEvent.getSource() == btnCancelEdit) {
-            btnConfirmEdit.setVisible(false);
-            btnConfirmEdit.setDisable(true);
-            btnCancelEdit.setVisible(false);
-            btnCancelEdit.setDisable(true);
             btnEdit.setVisible(true);
-            btnEdit.setDisable(false);
-            btnAdd.setDisable(false);
-            btnInStock.setDisable(false);
-            btnOutStock.setDisable(false);
-            tableItem.setDisable(false);
+            MainController.setVisible(false, btnConfirmEdit, btnCancelEdit);
+            MainController.setDisable(true, btnConfirmEdit, btnCancelEdit);
+            MainController.setDisable(false, tableItem, btnAdd);
         } else if (mouseEvent.getSource() == btnConfirmEdit) {
-            String newName = txtName.getText();
-            String newPriceM = txtPriceM.getText();
-            String newPriceL = txtPriceL.getText();
-            String newPromo = txtPromo.getText();
-            String newType = cbxCategory2.getSelectionModel().getSelectedItem();
+            btnEdit.setVisible(true);
+            MainController.setVisible(false, btnConfirmEdit, btnCancelEdit);
+            MainController.setDisable(true, btnConfirmEdit, btnCancelEdit);
+            MainController.setDisable(false, tableItem, btnAdd);
+
             String oldName = selectedItem.getName();
             String oldPriceM = selectedItem.getPriceM().toString();
             String oldPriceL = selectedItem.getPriceL().toString();
             String oldPromo = selectedItem.getPromo().toString();
             String oldType = selectedItem.getType();
             String oldValues = oldName + oldPriceM + oldPriceL + oldPromo + oldType;
+            String newName = txtName.getText();
+            String newPriceM = txtPriceM.getText();
+            String newPriceL = txtPriceL.getText();
+            String newPromo = txtPromo.getText();
+            String newType = cbxCategory2.getSelectionModel().getSelectedItem();
             String newValues = newName + newPriceM + newPriceL + newPromo + newType;
-            System.out.println(oldValues);
-            System.out.println(newValues);
-            if (oldValues.equals(newValues)) {
-                lblNoti.setText("Nothing changes!");
+            if (newName.isBlank() || newPriceM.isBlank() || (newType.equals("TOPPING") && !newPriceL.isBlank())) {
+                lblNoti.setText("Can not update, please check again!");
             } else {
-                if (newPromo.isBlank()) {
-                    newPromo = "0";
+                if (oldValues.equals(newValues)) {
+                    lblNoti.setText("Nothing changes!");
+                } else {
+                    Integer newPromoInt = null;
+                    Integer newPriceMInt = Integer.parseInt(newPriceM);
+                    Integer newPriceLInt = null;
+                    if (!newPriceL.isBlank() && !newPriceL.equals("0")) {
+                        newPriceLInt = Integer.parseInt(newPriceL);
+                    }
+                    if (!newPromo.isBlank() && !newPromo.equals("0")) {
+                        newPromoInt = Integer.parseInt(newPromo);
+                    }
+                    updateItemIntoDB(oldName, newName, newType, newPriceMInt, newPriceLInt, newPromoInt);
                 }
-                Item newItem = new Item(0, newName, newType, Integer.parseInt(newPriceM), Integer.parseInt(newPriceL)
-                        , "in stock", Integer.parseInt(newPromo));
-                System.out.println(newItem);
             }
-            btnConfirmEdit.setVisible(false);
-            btnConfirmEdit.setDisable(true);
-            btnCancelEdit.setVisible(false);
-            btnCancelEdit.setDisable(true);
-            btnEdit.setVisible(true);
-            btnEdit.setDisable(false);
-            btnAdd.setDisable(false);
-            btnInStock.setDisable(false);
-            btnOutStock.setDisable(false);
-            tableItem.setDisable(false);
+        } else if (mouseEvent.getSource() == btnInStock) {
+            updateStockStatus(selectedItem.getName(), selectedItem.getType(), "in stock");
+        } else if (mouseEvent.getSource() == btnOutStock) {
+            updateStockStatus(selectedItem.getName(), selectedItem.getType(), "out stock");
         }
     }
 
     private Item selectedItem;
+    public static String pathToImageDirectory = "file:D:\\JavaProject\\MilkTeaStore-RebuildInJavaFX\\src\\image\\item\\";
     public void handleClickTable(MouseEvent mouseEvent) {
         Item i = tableItem.getSelectionModel().getSelectedItem();
-        selectedItem = i;
-        btnEdit.setDisable(i == null);
-        txtName.setText(i.getName());
-        txtPriceM.setText(i.getPriceM().toString());
-        txtPriceL.setText(i.getPriceL().toString());
-        txtPromo.setText(i.getPromo().toString());
-        cbxCategory2.getSelectionModel().select(i.getType());
+        if (selectedItem != i) {
+            rectangle.setFill(null);
+            if (i != null) {
+                MainController.setDisable(false, btnEdit, btnInStock, btnOutStock, btnAddImage, btnRemoveImage);
+                selectedItem = i;
+                if (!i.getImageName().equals("not valid")) {
+                    String imageDirectory = "";
+                    switch (selectedItem.getType()) {
+                        case "MILK TEA": {
+                            imageDirectory = "milk-tea\\";
+                            break;
+                        }
+                        case "FRUIT TEA": {
+                            imageDirectory = "fruit-tea\\";
+                            break;
+                        }
+                        case "MACCHIATO": {
+                            imageDirectory = "macchiato\\";
+                            break;
+                        }
+                        case "TOPPING": {
+                            imageDirectory = "topping\\";
+                            break;
+                        }
+                        case "FOOD": {
+                            imageDirectory = "food\\";
+                            break;
+                        }
+                    }
+                    rectangle.setFill(new ImagePattern(new Image(pathToImageDirectory + imageDirectory + i.getImageName())));
+                }
+                txtName.setText(i.getName());
+                txtPriceM.setText(i.getPriceM().toString());
+                txtPriceL.setText(i.getPriceL().toString());
+                txtPromo.setText(i.getPromo().toString());
+                cbxCategory2.getSelectionModel().select(i.getType());
+            }
+        }
+    }
+
+    public void handleAddAndRemoveImage(MouseEvent mouseEvent) throws IOException {
+        if (mouseEvent.getSource() == btnAddImage) {
+            FileChooser fileChooser = new FileChooser();
+            File selectFile = fileChooser.showOpenDialog(null);
+            String[] splitImageName = selectFile.getAbsolutePath().split(Pattern.quote("\\"));
+            String imageName = splitImageName[splitImageName.length - 1];
+            selectedItem.setImageName(imageName);
+            updateImageNameIntoDB(imageName, selectedItem.getName());
+            rectangle.setFill(new ImagePattern(new Image("file:" + selectFile)));
+            File destination;
+            switch (selectedItem.getType()) {
+                case "MILK TEA": {
+                    destination = new File("src/image/item/milk-tea");
+                    break;
+                }
+                case "FRUIT TEA": {
+                    destination = new File("src/image/item/fruit-tea");
+                    break;
+                }
+                case "MACCHIATO": {
+                    destination = new File("src/image/item/macchiato");
+                    break;
+                }
+                case "TOPPING": {
+                    destination = new File("src/image/item/topping");
+                    break;
+                }
+                case "FOOD": {
+                    destination = new File("src/image/item/food");
+                    break;
+                }
+                default:
+                    destination = new File("src/image/item");
+            }
+            FileUtils.copyFileToDirectory(selectFile, destination);
+        } else if (mouseEvent.getSource() == btnRemoveImage) {
+            updateImageNameIntoDB("null", selectedItem.getName());
+            rectangle.setFill(null);
+            String imageDirectory = "";
+            switch (selectedItem.getType()) {
+                case "MILK TEA": {
+                   imageDirectory = "milk-tea\\";
+                    break;
+                }
+                case "FRUIT TEA": {
+                    imageDirectory = "fruit-tea\\";
+                    break;
+                }
+                case "MACCHIATO": {
+                    imageDirectory = "macchiato\\";
+                    break;
+                }
+                case "TOPPING": {
+                    imageDirectory = "topping\\";
+                    break;
+                }
+                case "FOOD": {
+                    imageDirectory = "food\\";
+                    break;
+                }
+            }
+            FileUtils.forceDelete(new File("D:\\JavaProject\\MilkTeaStore-RebuildInJavaFX\\src\\image\\item\\" + imageDirectory + selectedItem.getImageName()));
+            selectedItem.setImageName("not valid");
+        }
+    }
+
+    public void updateImageNameIntoDB(String imageName, String itemName) {
+        if (!imageName.equals("null")) {
+            imageName = "'" + imageName + "'";
+        }
+        String query = "UPDATE item SET image_name = " + imageName + " WHERE item_name = '" + itemName + "'";
+        boolean res = MainController.connect.excuteQueryUpdate(query);
+        if (res) {
+            System.out.println("Successfully updated.");
+        }
+    }
+
+    public void updateStockStatus(String name, String type, String status) {
+        String query = "UPDATE item " +
+                "SET item_status = '" + status + "' " +
+                "WHERE item_name = '" + name + "'";
+        boolean res = MainController.connect.excuteQueryUpdate(query);
+        loadItemListFromDBToTable(type);
+    }
+
+    public void updateItemIntoDB(String oldName, String newName, String newType, Integer newPriceM, Integer newPriceL, Integer newPromo) {
+        String query = "UPDATE item " +
+                "SET item_name = '" + newName + "', " +
+                "item_type = '" + newType + "', " +
+                "price_sizem = " + newPriceM + ", " +
+                "price_sizel = " + newPriceL + ", " +
+                "discount_promo = " + newPromo + " " +
+                "WHERE item_name = '" + oldName + "'";
+        boolean res = MainController.connect.excuteQueryUpdate(query);
+        if (res) {
+            loadItemListFromDBToTable(newType);
+            lblNoti.setText("Successfully updated.");
+        } else {
+            lblNoti.setText("Update failed!");
+        }
+    }
+
+    public void insertItemIntoDB(String name, String type, Integer priceM, Integer priceL, Integer promo) {
+        String query = "INSERT INTO item VALUES ('" + name + "', '" + type + "', " + priceM + ", " + priceL
+                + ", 'in stock', " + promo + ", null)";
+        boolean res = MainController.connect.excuteQueryUpdate(query);
+        if (res) {
+            loadItemListFromDBToTable(type);
+            lblNoti.setText("Successfully added.");
+        } else {
+            lblNoti.setText("Add failed!");
+        }
     }
 
     public static List<Item> loadItemListFromDBToList(String itemType) {
@@ -268,7 +387,11 @@ public class ItemController implements Initializable {
                 Integer priceL = resultSet.getInt("price_sizel");
                 String status = resultSet.getString("item_status");
                 Integer promo = resultSet.getInt("discount_promo");
+                String imageName = resultSet.getString("image_name");
                 Item item = new Item(++countIndex, name, itemType, priceM, priceL, status, promo);
+                if (imageName != null) {
+                    item.setImageName(imageName);
+                }
                 itemList.add(item);
             }
         } catch (Exception e) {
