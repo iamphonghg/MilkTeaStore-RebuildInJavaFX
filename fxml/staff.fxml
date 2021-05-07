@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="680.0" minWidth="1230.0" prefHeight="680.0" prefWidth="1230.0" style="-fx-background-color: #e8eff2;" stylesheets="@../css/staff.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StaffController">
+   <children>
+      <AnchorPane minHeight="104.0" minWidth="1230.0" prefHeight="104.0" prefWidth="1230.0">
+         <children>
+            <Label layoutX="43.0" layoutY="26.0" styleClass="main-label" text="Staff" textFill="#002060">
+               <font>
+                  <Font name="Josefin Sans SemiBold" size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="60.0" styleClass="sub-main-label" text="Add new or update staff infomation" textFill="#002060">
+               <font>
+                  <Font name="Josefin Sans Light" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="104.0" minHeight="576.0" minWidth="1230.0" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <AnchorPane layoutX="40.0" prefHeight="540.0" prefWidth="695.0" style="-fx-background-color: white; -fx-background-radius: 12;">
+               <children>
+                  <TableView fx:id="tableStaff" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleClickTable" prefHeight="520.0" prefWidth="675.0" style="-fx-background-color: ffffff; -fx-border-color: e8eff2;">
+                     <columns>
+                        <TableColumn fx:id="colID" prefWidth="67.20000839233398" text="ID" />
+                        <TableColumn fx:id="colName" prefWidth="169.59999084472656" text="Name" />
+                        <TableColumn fx:id="colGender" minWidth="0.0" prefWidth="65.60003662109375" text="Gender" />
+                        <TableColumn fx:id="colBirthday" prefWidth="149.59991455078125" text="Birthday" />
+                        <TableColumn fx:id="colPosition" prefWidth="104.800048828125" text="Position" />
+                        <TableColumn fx:id="colStatus" prefWidth="127.20001220703125" text="Status" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="765.0" maxHeight="414.0" maxWidth="418.0" minHeight="540.0" minWidth="418.0" prefHeight="414.0" prefWidth="418.0" style="-fx-background-color: white; -fx-background-radius: 12;">
+               <children>
+                  <Label layoutX="26.0" layoutY="27.0" prefHeight="30.0" prefWidth="62.0" text="ID:" textFill="#002060">
+                     <font>
+                        <Font name="Josefin Sans SemiBold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtID" alignment="CENTER_RIGHT" editable="false" layoutX="38.0" layoutY="62.0" prefHeight="30.0" prefWidth="150.0" promptText="NV0000" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
+                  <Label layoutX="26.0" layoutY="345.0" prefHeight="30.0" prefWidth="75.0" text="Gender:" textFill="#002060">
+                     <font>
+                        <Font name="Josefin Sans SemiBold" size="20.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cbxGender" layoutX="38.0" layoutY="380.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="150.0" promptText="Male" style="-fx-background-color: #ffffff;" />
+                  <Label layoutX="26.0" layoutY="107.0" prefHeight="30.0" prefWidth="90.0" text="Name:" textFill="#002060">
+                     <font>
+                        <Font name="Josefin Sans SemiBold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="26.0" layoutY="425.0" prefHeight="30.0" prefWidth="90.0" text="Birthday:" textFill="#002060">
+                     <font>
+                        <Font name="Josefin Sans SemiBold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtName" alignment="CENTER_RIGHT" layoutX="38.0" layoutY="142.0" prefHeight="30.0" prefWidth="150.0" promptText="Mr. Tea" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
+                  <Label layoutX="26.0" layoutY="268.0" prefHeight="30.0" prefWidth="90.0" text="Phone:" textFill="#002060">
+                     <font>
+                        <Font name="Josefin Sans SemiBold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtPhone" alignment="CENTER_RIGHT" layoutX="38.0" layoutY="300.0" prefHeight="30.0" prefWidth="150.0" promptText="0123456789" style="-fx-border-radius: 8; -fx-background-color: none; -fx-border-color: #002060;" />
+                  <Button fx:id="btnAdd" layoutX="259.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#eventButton" prefHeight="35.0" prefWidth="100.0" styleClass="btn-add-new" text="ADD" textFill="WHITE">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnEdit" disable="true" layoutX="259.0" layoutY="343.0" maxHeight="35.0" minHeight="35.0" mnemonicParsing="false" onMouseClicked="#eventButton" prefHeight="35.0" prefWidth="100.0" styleClass="btn-edit" text="EDIT" textFill="#002060">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnRetire" disable="true" layoutX="259.0" layoutY="390.0" mnemonicParsing="false" onMouseClicked="#eventButton" prefHeight="35.0" prefWidth="100.0" styleClass="btn-retire" text="RETIRE" textFill="#002060">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+                  <AnchorPane layoutX="229.0" layoutY="67.0" maxHeight="160.0" maxWidth="160.0" minHeight="160.0" minWidth="160.0" prefHeight="160.0" prefWidth="160.0">
+                     <children>
+                        <MaterialDesignIconView fill="#002060" glyphName="ACCOUNT" layoutX="33.0" layoutY="115.0" size="95" />
+                        <Circle fx:id="circle" fill="#ffffff00" layoutX="81.0" layoutY="79.0" radius="80.0" stroke="#002060" strokeType="INSIDE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="btnAddImage" disable="true" layoutX="316.0" layoutY="236.0" mnemonicParsing="false" onMouseClicked="#handleAddAndRemoveImage" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #002060; -fx-background-radius: 15;">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="FILE_IMAGE_ALT" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnRemoveImage" disable="true" layoutX="274.0" layoutY="236.0" mnemonicParsing="false" onMouseClicked="#handleAddAndRemoveImage" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: none; -fx-border-radius: 15; -fx-border-color: #002060;">
+                     <graphic>
+                        <FontAwesomeIconView fill="#002060" glyphName="TRASH_ALT" size="14" />
+                     </graphic>
+                  </Button>
+                  <Label fx:id="lblNoti" layoutX="28.0" layoutY="506.0" prefHeight="26.0" prefWidth="364.0" styleClass="lblNoti" text="Notification" textFill="#002060" />
+                  <ComboBox fx:id="cbxYear" layoutX="38.0" layoutY="460.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="79.0" promptText="2000" styleClass="cbx-year" />
+                  <ComboBox fx:id="cbxMonth" layoutX="121.0" layoutY="460.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="63.0" promptText="1" styleClass="cbx-month" />
+                  <ComboBox fx:id="cbxDay" layoutX="188.0" layoutY="460.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="63.0" promptText="1" styleClass="cbx-day" />
+                  <Label layoutX="26.0" layoutY="187.0" prefHeight="30.0" prefWidth="90.0" text="Position:" textFill="#002060">
+                     <font>
+                        <Font name="Josefin Sans SemiBold" size="20.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cbxPosition" layoutX="38.0" layoutY="223.0" nodeOrientation="RIGHT_TO_LEFT" prefWidth="150.0" promptText="Manager" />
+                  <Button fx:id="btnConfirmAdd" layoutX="214.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#eventButton" prefHeight="35.0" prefWidth="90.0" styleClass="btn-confirm-add" text="CONFIRM" textFill="WHITE" visible="false">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnCancelAdd" layoutX="316.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#eventButton" prefHeight="35.0" prefWidth="90.0" styleClass="btn-cancel-add" text="CANCEL" textFill="WHITE" visible="false">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnCancelEdit" layoutX="314.0" layoutY="343.0" mnemonicParsing="false" onMouseClicked="#eventButton" prefHeight="35.0" prefWidth="90.0" styleClass="btn-cancel-edit" text="CANCEL" textFill="WHITE" visible="false">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnConfirmEdit" layoutX="214.0" layoutY="343.0" mnemonicParsing="false" onMouseClicked="#eventButton" prefHeight="35.0" prefWidth="90.0" styleClass="btn-confirm-edit" text="CONFIRM" textFill="WHITE" visible="false">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
